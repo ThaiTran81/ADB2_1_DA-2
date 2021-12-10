@@ -8,16 +8,24 @@ go
 use qlbh
 go
 
+IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like 'ROLES')  
+   DROP TABLE [dbo].ROLES; 
+GO 
+CREATE table ROLES(
+  rID INT IDENTITY(1,1) PRIMARY KEY,
+  rName nVARCHAR(20)
+  )
 IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like '[User]')  
    DROP TABLE [dbo].[User];  
 GO
 create table [User] (
-	[uid] char(9) primary key,
+	[uid] int IDENTITY(1,1) primary key,
 	fullname nvarchar(50),
 	dob date,
 	[address] nvarchar(100),
 	telephone char(10),
-	email nvarchar(50),
+	email varchar(50),
+  datefounded datetime,
 	score float
 );
 
@@ -25,11 +33,10 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Account;  
 GO
 create table Account(
-	username nvarchar(50) primary key,
-	[password] nvarchar(100),
+	username varchar(30) primary key,
+	[password] varchar(100),
 	[role] int,
-	datefounded datetime,
-	userid char(9)
+	userid int
 );
 
 
@@ -37,19 +44,19 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Product;  
 GO
 create table Product(
-proID varchar(9) primary key,
+proID int IDENTITY(1,1) primary key,
 pname nvarchar(50),
 title nvarchar(30),
 [description] nvarchar(100),
 stocks int,
-ptype char(5)
+ptype int
 );
 
 IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like 'Category')  
    DROP TABLE [dbo].Category;  
 GO
 create table Category(
-categoryId varchar(9) primary key,
+categoryId int IDENTITY(1,1) primary key,
 categoryName nvarchar(50)
 );
 
@@ -57,9 +64,9 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].ProductType;  
 GO
 create table ProductType(
-	tId char(5) primary key,
+	tId int IDENTITY(1,1) primary key,
 	tName nvarchar(50),
-	category char(5)
+	category int
 );
 
 
@@ -67,7 +74,7 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].PriceProduct;  
 GO
 create table PriceProduct(
-proID varchar(9),
+proID int,
 [date] datetime,
 Price float,
 Discount float,
@@ -79,7 +86,7 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Salary;  
 GO
 create table Salary(
-[uID] varchar(9),
+[uID] int,
 salary float,
 sales float,
 DateS date,
@@ -90,7 +97,7 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Supplier;  
 GO
 create table Supplier(
-supID varchar(9) primary key,
+supID int IDENTITY(1,1) primary key,
 supName nvarchar(50),
 addr nvarchar(50)
 );
@@ -99,8 +106,8 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Rating;  
 GO
 create table Rating(
-proID varchar(9),
-[uID] varchar(9),
+proID int,
+[uID] int,
 score float,
 feedback nvarchar(100),
 timeRating datetime,
@@ -111,8 +118,8 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Import;  
 GO
 create table Import(
-	imID char(9) primary key,
-	supID char(5),
+	imID int IDENTITY(1,1) primary key,
+	supID int,
 	imDate date,
 	total money
 );
@@ -121,8 +128,8 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Import_detailed;  
 GO
 create table Import_detailed(
-	ImID varchar(9),
-	proID varchar(9),
+	ImID int,
+	proID int,
 	Quantity int,
 	price money,
 	total money,
@@ -133,11 +140,11 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].[Order];  
 GO
 create table [Order](
-	orderID char(5) primary key,
-	[uID] char(9),
+	orderID int IDENTITY(1,1) primary key,
+	[uID] int,
 	discount float,
 	dateBill date,
-	empID varchar(9),
+	empID int,
 	total money,
 	isPay bit
 );
@@ -146,8 +153,8 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Order_detail;  
 GO
 create table Order_detail(
-orderID varchar(9),
-proID varchar(9),
+orderID int,
+proID int,
 quantity int,
 price money,
 discount float,
@@ -159,13 +166,12 @@ IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND n
    DROP TABLE [dbo].Attendance;  
 GO
 create table Attendance(
-[uid] varchar(9),
+[uid] int,
 timeStart datetime,
 timeEnd datetime,
 [status] bit,
 	constraint PK_Attendance primary key ([uid], timeStart)
 );
-
 
 
 
@@ -218,6 +224,8 @@ ALTER TABLE Attendance ADD CONSTRAINT FK_Attendance_User FOREIGN KEY ([uid]) REF
 IF (OBJECT_ID('dbo.FK_Salary_User', 'F') IS NOT NULL) ALTER TABLE dbo.Salary DROP CONSTRAINT FK_Salary_User
 ALTER TABLE Salary ADD CONSTRAINT FK_Salary_User FOREIGN KEY ([uID]) REFERENCES [User]([uid]);
 
+IF (OBJECT_ID('dbo.FK_Account_Roles', 'F') IS NOT NULL) ALTER TABLE dbo.Account DROP CONSTRAINT FK_Account_Roles
+ALTER TABLE Account ADD CONSTRAINT FK_Account_Roles FOREIGN KEY ([role]) REFERENCES ROLES (rID);
 
 
 
