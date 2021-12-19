@@ -121,7 +121,7 @@ create table Import(
 	imID int IDENTITY(1,1) primary key,
 	supID int,
 	imDate date,
-	total money
+	total float
 );
 
 IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like 'Import_detailed')  
@@ -131,8 +131,8 @@ create table Import_detailed(
 	ImID int,
 	proID int,
 	Quantity int,
-	price money,
-	total money,
+	price float,
+	total float,
 	constraint PK_Import_detailed primary key (ImID, proID)
 );
 
@@ -145,7 +145,7 @@ create table [Order](
 	discount float,
 	dateBill date,
 	empID int,
-	total money,
+	total float,
 	isPay bit
 );
 
@@ -156,9 +156,9 @@ create table Order_detail(
 orderID int,
 proID int,
 quantity int,
-price money,
+price float,
 discount float,
-total money,
+total float,
 	constraint PK_Order_detail primary key (orderID, proID)
 );
 
