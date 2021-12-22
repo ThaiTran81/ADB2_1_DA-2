@@ -22,3 +22,23 @@ EXEC SIGN_UP @username = 'trhuutrong'
             ,@email = 'trhuutrong@gmail.com'
             ,@datefounded = '2021-12-22 16:20:14.669'
 
+-- xuat ra thong tin gia cua moi san pham, check proc ben duoi
+ SELECT pp.price, pp.date
+FROM PriceProduct pp 
+WHERE pp.proID = 4
+ORDER BY pp.date DESC
+GO
+-- Proc Xem thong tin san pham
+CREATE PROC XemThongTinSanPham @productID INT
+  as
+SELECT p.proID AS N'Mã SP'
+      ,p.pname AS N'Tên SP'
+      ,p.stocks AS N'SL Tồn'
+      ,p.ptype AS 'Type'
+      ,pp.date AS 'Date'
+      ,pp.Price AS N'Giá SP'
+      ,pp.Discount AS N'Giảm giá'
+FROM PriceProduct pp JOIN Product p ON pp.proID = p.proID
+WHERE @productID = pp.proID  AND pp.date >= ALL (SELECT pp1.date FROM PriceProduct pp1 WHERE pp1.proID = pp.proID )
+--DROP PROC XemThongTinSanPham
+EXECUTE XemThongTinSanPham @productID = 4
