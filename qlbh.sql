@@ -23,7 +23,7 @@ create table [User] (
 	fullname nvarchar(50),
 	dob date,
 	[address] nvarchar(100),
-	telephone char(10),
+	telephone char(15) UNIQUE,
 	email varchar(50),
   datefounded datetime,
 	score float
@@ -88,9 +88,10 @@ GO
 create table Salary(
 [uID] int,
 salary float,
-sales float,
-DateS date,
-	constraint PK_Salary primary key ([uID], DateS)
+sales INT DEFAULT 0,
+DateStart date,
+DateEnd DATE,
+	constraint PK_Salary primary key ([uID], DateStart)
 );
 
 IF EXISTS(SELECT * FROM sys.tables WHERE SCHEMA_NAME(schema_id) LIKE 'dbo' AND name like 'Supplier')  
@@ -143,7 +144,7 @@ create table [Order](
 	orderID int IDENTITY(1,1) primary key,
 	[uID] int,
 	discount float,
-	dateBill date,
+	dateBill DATETIME,
 	empID int,
 	total float,
 	isPay bit
@@ -210,7 +211,7 @@ IF (OBJECT_ID('dbo.FK_Order_User', 'F') IS NOT NULL) ALTER TABLE dbo.[Order] DRO
 ALTER TABLE [Order] ADD CONSTRAINT FK_Order_User FOREIGN KEY ([uID]) REFERENCES [User]([uid]);
 
 IF (OBJECT_ID('dbo.FK_Order_EmpID', 'F') IS NOT NULL) ALTER TABLE dbo.[Order] DROP CONSTRAINT FK_Order_EmpID
-ALTER TABLE [Order] ADD CONSTRAINT FK_Order_EmpID FOREIGN KEY ([uID]) REFERENCES [User]([uid]);
+ALTER TABLE [Order] ADD CONSTRAINT FK_Order_EmpID FOREIGN KEY (empID) REFERENCES [User]([uid]);
 
 IF (OBJECT_ID('dbo.FK_OrderDetail_Order', 'F') IS NOT NULL) ALTER TABLE dbo.Order_detail DROP CONSTRAINT FK_OrderDetail_Order
 ALTER TABLE Order_detail ADD CONSTRAINT FK_OrderDetail_Order FOREIGN KEY ([orderID]) REFERENCES [Order]([orderID]);
