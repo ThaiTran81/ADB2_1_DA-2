@@ -157,6 +157,7 @@ CREATE TABLE dbo.[Order] (
   total float NULL,
   isPay bit NULL,
   storeID int NULL,
+  address NVARCHAR(50) NULL,
   PRIMARY KEY CLUSTERED (orderID)
 )
 ON [PRIMARY]
