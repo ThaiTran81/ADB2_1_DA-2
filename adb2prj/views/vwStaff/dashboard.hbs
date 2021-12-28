@@ -1,0 +1,35 @@
+<div class="details">
+    <div class="recentOrders">
+        <div class="cardHeader>">
+            <h2>Đơn hàng gần đây</h2>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <td>Mã HD</td>
+                <td>Mã KH</td>
+                <td>Giảm giá</td>
+                <td>Tổng tiền</td>
+                <td>Ngày lập</td>
+                <td>Thanh toán</td>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each list}}
+                <tr>
+                    <td>{{orderID}}</td>
+                    <td>{{uID}}</td>
+                    <td>{{discount}}</td>
+                    <td>{{total}}</td>
+                    <td>{{formatDateTime dateBill}}</td>
+                    {{#if isPay}}
+                        <td>Đã thanh toán</td>
+                    {{else}}
+                        <td>Chưa thanh toán</td>
+                    {{/if}}
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
