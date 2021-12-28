@@ -3,9 +3,7 @@ import {engine} from "express-handlebars";
 import sections from "express-handlebars-sections";
 import morgan from 'morgan';
 import orderModels from "./models/orders.model.js";
-
-
-
+import accountModels from "./models/accounts.model.js";
 
 const app = express();
 app.use('/public', express.static('public'));
@@ -28,27 +26,45 @@ app.engine('hbs', engine({
     }
 }));
 
-app.get('/',async function (req, res) {
-    let lst = await orderModels.findOrderByID();
-    console.log(lst);
-    res.render('home', {
-        layout: 'home.hbs',
-        lst
+app.get('/login', function (req, res) {
+
+    res.render('vwAccounts/login-register', {
+        layout: 'accounts.hbs'
+    });
+});
+
+app.post('/login', async function (req, res) {
+    let entity = req.body;
+    let account = await accountModels.findAccount(entity.username);
+    if (entity.password === account.password) {
+        res.redirect('/');
+        return;
+    }
+
+    res.render('vwAccounts/login-register', {
+        layout: 'accounts.hbs'
+    });
+});
+
+app.post('/register',async function (req, res) {
+    let account = req.body;
+    account.datefounded = new Date().toISOString();
+    account.role = 3;
+    let ret = await accountModels.addAccount(account);
+    res.render('vwAccounts/login-register', {
+        layout: 'accounts.hbs'
     });
 });
 
 app.get('/dashboard', async function (req, res) {
     let list = await orderModels.findOrderByID(315);
     let total = await orderModels.statisticRevenue();
-    console.log(list);
-    console.log(total)
     res.render('vwStaff/dashboard', {
         layout: 'staff.hbs',
         list,
         total
     });
 });
-
 
 const port = 3000;
 app.listen(port, function ()  {
