@@ -5,6 +5,7 @@ DROP DATABASE IF EXISTS qlbh;
 create database qlbh;
 go
 
+--DROP DATABASE qlbh
 use qlbh
 go
 
