@@ -1,0 +1,68 @@
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+            {{#if checkEnd}}
+                <div class="card text-start col-12">
+                    <div class="card-body">
+                        <h3 class="card-title">Điểm danh</h3>
+                        {{#if attendance}}
+                            <h5 class="card-text">Bạn đã điểm danh ngày hôm nay rồi!
+                                <br>Vui lòng nhấn vào nút <span
+                                        class="text-primary bold">"kết thúc ca làm!"</span> để cập nhật thời gian
+                                tan ca trong ngày hôm nay!</h5>
+                            <a href="/attendance/update?uid={{userid}}" class="btn btn-primary">Kết thúc ca làm!</a>
+                        {{else}}
+                            <p class="card-text">Chưa điểm danh ngày 12/12/2021</p>
+                            <a href="/attendance/add?uid={{userid}}" class="btn btn-primary">Điểm danh!</a>
+                        {{/if}}
+                    </div>
+                </div>
+
+            {{else}}
+                <div class=" col-12 alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Điểm danh thành công!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {{/if}}
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card table-widget">
+                    <div class="card-body">
+                        <div class="table-responsive fix-head">
+                            <h1 class="text-center">Bảng điểm danh trong tháng:</h1>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã nhân viên</th>
+                                    <th scope="col">Ngày giờ vào làm</th>
+                                    <th scope="col">Ngày giờ tan ca</th>
+                                    <th scope="col">Lỗi đi trễ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each list}}
+                                    <tr>
+                                        <td>#{{uid}}</td>
+                                        <td>{{formatDateTime timeStart}}</td>
+                                        {{#if timeEnd}}
+                                            <td>{{formatDateTime timeEnd}}</td>
+                                        {{else}}
+                                            <td class="text-danger">Không chấm công</td>
+                                        {{/if}}
+                                        {{#if status}}
+                                            <td>Vi phạm</td>
+                                        {{else}}
+                                            <td>Không vi phạm</td>
+                                        {{/if}}
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

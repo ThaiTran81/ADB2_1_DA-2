@@ -7,5 +7,9 @@
     <orderEntry type="library" name="boxicons" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="ionicons" level="application" />
+    <orderEntry type="library" name="@popperjs" level="application" />
+    <orderEntry type="library" name="feather-icons" level="application" />
+    <orderEntry type="library" name="html5shiv" level="application" />
+    <orderEntry type="library" name="respond" level="application" />
   </component>
 </module>
