@@ -73,6 +73,18 @@ export default {
             console.log(err)
             return false;
         }
+    },
+    async findStaffStoredID(uid){
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('uid', sql.Int, uid)
+                .execute("SelectStaffStoredID");
+            return result.recordset;
+        }catch(err){
+            console.log(err)
+            return false;
+        }
     }
 };
 

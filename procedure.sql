@@ -62,6 +62,42 @@
 --END	
 --GO 
 
+CREATE PROCEDURE FindAllSalaryStaffID
+@uid INT	
+AS  
+BEGIN	
+	(SELECT * FROM dbo.Salary WHERE [uid] = @uid)
+END	
+GO  
+
+CREATE PROCEDURE FindAllSalaryByYear
+@uid INT, @year INT	
+AS  
+BEGIN	
+	(SELECT * FROM dbo.Salary WHERE [uid] = @uid AND YEAR(DateStart) = @year)
+END	
+GO  
+
+EXEC dbo.FindAllSalaryByYear @uid = 315, -- int
+                             @year = 2021 -- int
+
+INSERT INTO	dbo.Salary
+(
+    uID,
+    salary,
+    sales,
+    DateStart,
+    DateEnd
+)
+VALUES
+(   315,         -- uID - int
+    1000,       -- salary - float
+    200000,         -- sales - int
+    '2021-12-29', -- DateStart - date
+    GETDATE()  -- DateEnd - date
+    )
+
+
 
 
 --select top 20 * from (
@@ -73,3 +109,10 @@
 --) xx where r_n_n >= 40
 --{OFFSET HERE}
 
+
+USE qlbh
+GO 
+
+SELECT * FROM account WHERE USerid = 315
+
+SELECT * FROM dbo.Attendance WHERE uid = 315

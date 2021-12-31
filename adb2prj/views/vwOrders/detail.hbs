@@ -1,0 +1,77 @@
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <h2>Chi tiết hoá đơn</h2>
+                            </div>
+                            <div class="col-4">
+                                <h4 class="float-end">Mã hoá đơn: #{{this.order.orderID}}</h4>
+                            </div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="info">Ngày lập hoá đơn: </p>
+                                    <p>{{formatDateTime this.order.dateBill}}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="info">ID khách hàng: </p>
+                                    <p>#{{this.order.uID}}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="info">Địa chỉ:</p>
+                                    <p>{{this.address}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 table-responsive fix-head">
+                                <table class="table invoice-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Mã sản phẩm</th>
+                                        <th scope="col">Tên sản phẩm</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Đơn giá</th>
+                                        <th scope="col">Giảm giá</th>
+                                        <th scope="col">Thành tiền</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each details}}
+                                        <tr>
+                                            <th scope="row">{{increase_1 @index}}</th>
+                                            <td>{{proID}}</td>
+                                            <td>{{pname}}</td>
+                                            <td>{{quantity}}</td>
+                                            <td>{{price}}</td>
+                                            <td>{{discount}}</td>
+                                            <td>{{total}}</td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                                <div class="float-end me-5 w-25">
+                                    <div class="invoice-info">
+                                        <p>Tổng tiền <span>{{formatMoney this.totalDetail}}</span></p>
+                                        <p>Giảm giá <span>{{formatMoney this.order.discount}}</span></p>
+                                        <p class="bold">Thành tiền: <span class=""> {{formatMoney this.order.total}}</span></p>
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-danger m-t-xs" type="button">In hoá đơn
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

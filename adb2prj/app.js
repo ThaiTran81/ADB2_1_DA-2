@@ -11,6 +11,8 @@ import orderModels from "./models/orders.model.js";
 import accountModels from "./models/accounts.model.js";
 import staffModels from "./models/staff.model.js";
 import salaryModels from "./models/salary.model.js";
+import userModels from "./models/user.model.js";
+
 
 const app = express();
 app.use('/assets', express.static('assets'));
@@ -37,7 +39,14 @@ app.engine('hbs', engine({
         },
         formatDateTime(d){
             return d.toLocaleString('vi');
+        },
+        formatDate(d){
+            return d.toDateString('vi');
+        },
+        increase_1(value){
+            return value+1;
         }
+
     }
 }));
 
@@ -130,17 +139,17 @@ app.get('/attendance',async function(req, res){
 
 app.get('/attendance/add', async function(req, res){
     let attendance = req.body;
-    console.log(req.session.account.userid)
     attendance.uid = req.query.uid;
-
     attendance.timeStart = new Date().toLocaleString();
-    console.log(attendance);
+
     let hour = new Date(attendance.timeStart).getHours();
+
     if(hour < 8){
-        attendance.status = 1;
-    }else {
         attendance.status = 0;
+    }else {
+        attendance.status = 1;
     }
+
     await staffModels.addAttendance(attendance);
     res.redirect('/attendance');
 })
@@ -150,8 +159,6 @@ app.get('/salary',async function(req, res){
     let list = null;
     if (parseInt(year) === 0){
         list = await salaryModels.findAllByStaffID(req.session.account.userid);
-        // console.log(list);
-        // res.redirect('/salary');
     }else{
         list = await salaryModels.findAllByYear({userid: req.session.account.userid, year: year});
     }
@@ -192,6 +199,37 @@ app.get('/sales', function(req, res){
 app.get('/inventory', function(req, res){
     res.render('vwStaff/inventory',{
         layout: 'staff.hbs'
+    })
+})
+
+app.get('/order-processing',async function(req, res){
+    let storedID = await staffModels.findStaffStoredID(req.session.account.userid);
+    let list = await orderModels.findOrderByStoredID(storedID[0].storeID);
+    res.render('vwStaff/order-processing',{
+        layout: 'staff.hbs',
+        list
+    })
+})
+
+app.get('/orders/confirm',async function(req, res){
+    let userid = req.session.account.userid;
+    let orderID = req.query.orderID;
+
+    await orderModels.updateOrderWithEmpID({orderID: orderID, userid: userid});
+    res.redirect('/order-processing');
+})
+
+app.get('/orders/detail',async function(req, res){
+    // let userid = req.session.account.userid;
+    let orderID = req.query.orderID;
+    let order = await orderModels.findOrderByOrderID(orderID);
+    let address = await userModels.findAddressByUID(order[0].uID);
+    let details = await orderModels.findDetailOrderByOrderID(orderID);
+    let totalDetail = await orderModels.findTotalDetailOrderID(orderID);
+    res.render('vwOrders/detail',{
+        layout: 'staff.hbs',
+        order: order[0], address: address[0].address, details,
+        totalDetail: totalDetail[0].totaldetail
     })
 })
 
