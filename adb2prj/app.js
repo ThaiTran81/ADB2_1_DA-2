@@ -12,13 +12,14 @@ import accountModels from "./models/accounts.model.js";
 import staffModels from "./models/staff.model.js";
 import salaryModels from "./models/salary.model.js";
 import userModels from "./models/user.model.js";
+import productsModels from "./models/products.model.js";
 
 
 const app = express();
 app.use('/assets', express.static('assets'));
 app.use(morgan('dev'));
 app.use(express.urlencoded({
-    extended:true
+    extended: true
 }));
 
 // express session mdw
@@ -30,21 +31,25 @@ app.set('view engine', 'hbs');
 app.set('views', './views');
 app.engine('hbs', engine({
     defaultLayout: 'home.hbs',
-    helpers:{
+    helpers: {
         section: sections(),
-        formatMoney(val){
-            return  val.toLocaleString('vi', {
-                style : 'currency',
-                currency : 'VND'});
+        formatMoney(val) {
+            return val.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            });
         },
-        formatDateTime(d){
+        formatDateTime(d) {
             return d.toLocaleString('vi');
         },
-        formatDate(d){
+        formatDate(d) {
             return d.toDateString('vi');
         },
-        increase_1(value){
-            return value+1;
+        increase_1(value) {
+            return value + 1;
+        },
+        isZero(value) {
+            return options.fn(value <= 0);
         }
 
     }
@@ -56,9 +61,20 @@ active_middleware_local(app);
 
 // routes
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
+    // let products = await productsModels.findAllProduct();
+    let limit = req.query.limit || 9;
+    let page = req.query.page || 1;
+
+    let productNum = await productsModels.findQuantity();
+    let pageNum = parseInt(productNum.soluong / limit) + 1;
+
+    let products = await productsModels.findAllProductsWithLimitOffset(limit, page*limit);
+    console.log(products);
+
     res.render('home', {
-        layout: 'home.hbs'
+        layout: 'home.hbs',
+        products
     });
 });
 
@@ -91,7 +107,16 @@ app.post('/login', async function (req, res) {
 
 });
 
-app.post('/register',async function (req, res) {
+
+app.get('/logout', async function (req, res) {
+
+    req.session.login = false;
+    req.session.account = null;
+
+    res.redirect('/');
+});
+
+app.post('/register', async function (req, res) {
     let account = req.body;
     account.datefounded = new Date().toISOString();
     account.role = 3;
@@ -106,8 +131,7 @@ app.post('/register',async function (req, res) {
 app.get('/dashboard', async function (req, res) {
     if (req.session.account === null) {
         res.redirect('/');
-    }else {
-        console.log(req.session.account.userid);
+    } else {
         let list = await orderModels.findOrderByID(req.session.account.userid);
         let total = await orderModels.statisticRevenue();
         res.render('vwStaff/dashboard', {
@@ -119,16 +143,15 @@ app.get('/dashboard', async function (req, res) {
     }
 });
 
-app.get('/attendance',async function(req, res){
+app.get('/attendance', async function (req, res) {
 
     let userid = req.session.account.userid;
-    console.log(req.session.account.userid)
     let list = await staffModels.findAttendanceByID(userid);
     let date = new Date().toISOString();
-    let attendance = await staffModels.findAttendance({ uid: userid, timeStart: date });
-    let checkEnd = await staffModels.checkEndDateAttendance({ uid: userid, timeStart: date });
+    let attendance = await staffModels.findAttendance({uid: userid, timeStart: date});
+    let checkEnd = await staffModels.checkEndDateAttendance({uid: userid, timeStart: date});
 
-    res.render('vwStaff/attendance',{
+    res.render('vwStaff/attendance', {
         layout: 'staff.hbs',
         list,
         attendance,
@@ -137,16 +160,16 @@ app.get('/attendance',async function(req, res){
     })
 })
 
-app.get('/attendance/add', async function(req, res){
+app.get('/attendance/add', async function (req, res) {
     let attendance = req.body;
     attendance.uid = req.query.uid;
     attendance.timeStart = new Date().toLocaleString();
 
     let hour = new Date(attendance.timeStart).getHours();
 
-    if(hour < 8){
+    if (hour < 8) {
         attendance.status = 0;
-    }else {
+    } else {
         attendance.status = 1;
     }
 
@@ -154,35 +177,35 @@ app.get('/attendance/add', async function(req, res){
     res.redirect('/attendance');
 })
 
-app.get('/salary',async function(req, res){
+app.get('/salary', async function (req, res) {
     let year = req.query.year || 0;
     let list = null;
-    if (parseInt(year) === 0){
+    if (parseInt(year) === 0) {
         list = await salaryModels.findAllByStaffID(req.session.account.userid);
-    }else{
+    } else {
         list = await salaryModels.findAllByYear({userid: req.session.account.userid, year: year});
     }
-    res.render('vwStaff/salary',{
+    res.render('vwStaff/salary', {
         layout: 'staff.hbs',
         list
     })
 })
 
 
-app.post('/salary', function(req, res){
+app.post('/salary', function (req, res) {
     res.redirect('/salary?year=' + req.body.year);
 })
 
-app.get('/attendance/update', async function(req, res){
+app.get('/attendance/update', async function (req, res) {
     let attendance = req.body;
     attendance.uid = req.query.uid;
     attendance.timeStart = new Date().toLocaleString();
     attendance.timeEnd = new Date().toLocaleString();
     let hour = new Date(attendance.timeEnd).getHours();
 
-    if(hour < 18){
+    if (hour < 18) {
         attendance.status = 1;
-    }else {
+    } else {
         attendance.status = 0;
     }
 
@@ -190,28 +213,28 @@ app.get('/attendance/update', async function(req, res){
     res.redirect('/attendance');
 })
 
-app.get('/sales', function(req, res){
-    res.render('vwStaff/sales',{
+app.get('/sales', function (req, res) {
+    res.render('vwStaff/sales', {
         layout: 'staff.hbs'
     })
 })
 
-app.get('/inventory', function(req, res){
-    res.render('vwStaff/inventory',{
+app.get('/inventory', function (req, res) {
+    res.render('vwStaff/inventory', {
         layout: 'staff.hbs'
     })
 })
 
-app.get('/order-processing',async function(req, res){
+app.get('/order-processing', async function (req, res) {
     let storedID = await staffModels.findStaffStoredID(req.session.account.userid);
     let list = await orderModels.findOrderByStoredID(storedID[0].storeID);
-    res.render('vwStaff/order-processing',{
+    res.render('vwStaff/order-processing', {
         layout: 'staff.hbs',
         list
     })
 })
 
-app.get('/orders/confirm',async function(req, res){
+app.get('/orders/confirm', async function (req, res) {
     let userid = req.session.account.userid;
     let orderID = req.query.orderID;
 
@@ -219,14 +242,14 @@ app.get('/orders/confirm',async function(req, res){
     res.redirect('/order-processing');
 })
 
-app.get('/orders/detail',async function(req, res){
+app.get('/orders/detail', async function (req, res) {
     // let userid = req.session.account.userid;
     let orderID = req.query.orderID;
     let order = await orderModels.findOrderByOrderID(orderID);
     let address = await userModels.findAddressByUID(order[0].uID);
     let details = await orderModels.findDetailOrderByOrderID(orderID);
     let totalDetail = await orderModels.findTotalDetailOrderID(orderID);
-    res.render('vwOrders/detail',{
+    res.render('vwOrders/detail', {
         layout: 'staff.hbs',
         order: order[0], address: address[0].address, details,
         totalDetail: totalDetail[0].totaldetail
@@ -234,6 +257,6 @@ app.get('/orders/detail',async function(req, res){
 })
 
 const port = 3000;
-app.listen(port, function ()  {
+app.listen(port, function () {
     console.log(`Example app listening at http://localhost:${port}`)
 })
