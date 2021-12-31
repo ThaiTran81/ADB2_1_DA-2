@@ -1,0 +1,56 @@
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12">
+
+                <div class="card table-widget">
+                    <form class="m-3">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <select class="form-select text-center p-1" id="floatingSelect"
+                                            aria-label="Floating label select" name="year">
+                                        <option selected value=0>Chọn năm</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2 h-100">
+                                <button formmethod="post" type="submit" class="btn btn-outline-primary m-b-xs">Tìm kiếm
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="card-body">
+                        <div class="table-responsive fix-head">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Thời gian bắt đầu</th>
+                                    <th scope="col">Thời gian kết thúc</th>
+                                    <th scope="col">Doanh thu</th>
+                                    <th scope="col">Lương</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each list}}
+                                    <tr>
+                                        <td>{{formatDateTime DateStart}}</td>
+                                        <td>{{formatDateTime DateEnd}}</td>
+                                        <td>{{formatMoney sales}}</td>
+                                        <td>{{formatMoney salary}}</td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
