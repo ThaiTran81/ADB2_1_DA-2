@@ -50,8 +50,10 @@ app.engine('hbs', engine({
         },
         isZero(value) {
             return options.fn(value <= 0);
+        },
+        equal(varr, value, options){
+            return options.fn(varr == value);
         }
-
     }
 }));
 
@@ -63,18 +65,35 @@ active_middleware_local(app);
 
 app.get('/', async function (req, res) {
     // let products = await productsModels.findAllProduct();
-    let limit = req.query.limit || 9;
-    let page = req.query.page || 1;
+    let limit = 15
+    let curPage = parseInt(req.query.page) || 1;
+    if (curPage <= 0){
+        res.redirect('/');
+        return;
+    }
 
     let productNum = await productsModels.findQuantity();
-    let pageNum = parseInt(productNum.soluong / limit) + 1;
+    let pageNum = Math.floor(productNum.soluong / limit);
+    if (productNum.soluong % limit > 0)
+        pageNum++;
 
-    let products = await productsModels.findAllProductsWithLimitOffset(limit, page*limit);
-    console.log(products);
+    let listPages = getListPage(curPage,pageNum);
+
+    let products = await productsModels.findAllProductsWithLimitOffset(limit, (curPage - 1) * limit);
+    // console.log(products);
 
     res.render('home', {
         layout: 'home.hbs',
-        products
+        products, listPages, curPage, limit
+    });
+});
+
+app.get('/search', async function (req, res) {
+
+    console.log(req.body);
+    res.render('home', {
+        layout: 'home.hbs',
+        products, listPages, curPage, limit
     });
 });
 
@@ -95,6 +114,7 @@ app.post('/login', async function (req, res) {
 
         req.session.login = isTrue;
         req.session.account = account;
+        req.session.cart = [];
 
         res.redirect('/');
         return;
@@ -112,6 +132,7 @@ app.get('/logout', async function (req, res) {
 
     req.session.login = false;
     req.session.account = null;
+    req.session.cart = [];
 
     res.redirect('/');
 });
@@ -126,6 +147,16 @@ app.post('/register', async function (req, res) {
     res.render('vwAccounts/login-register', {
         layout: 'accounts.hbs'
     });
+});
+
+
+app.get('/add', async function (req, res) {
+
+    req.session.cart.push({
+        proID: req.query.proID
+    });
+
+    res.redirect('/');
 });
 
 app.get('/dashboard', async function (req, res) {
@@ -260,3 +291,47 @@ const port = 3000;
 app.listen(port, function () {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+
+function getListPage(curPage, pageNum){
+
+    let listPages = [];
+    let i = curPage - 2;
+    let endPage = curPage + 2;
+    if (i <= 0) {
+        i = 1;
+        endPage += 2;
+    }
+    else if(i >= 3){
+        listPages.push({
+            value: 1, isCur: false
+        });
+        listPages.push({
+            value: "...", isCur: false
+        })
+    }else if(i==2){
+        listPages.push({
+            value: 1, isCur: false
+        });
+    }
+    for (i; i < endPage + 1; i++) {
+        if (i > pageNum)
+            break;
+        listPages.push({
+            value: i, isCur: i === curPage
+        })
+    }
+    if (i === pageNum) {
+        listPages.push({
+            value: i, isCur: false
+        });
+    }
+    if (i <= pageNum - 1) {
+        listPages.push({
+            value: "...", isCur: false
+        });
+        listPages.push({
+            value: pageNum, isCur: false
+        });
+    }
+    return listPages;
+}

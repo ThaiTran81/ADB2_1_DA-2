@@ -103,13 +103,9 @@
 
                     <!-- Search -->
                     <div id="sosearchpro" class="col-sm-7 search-pro">
-                        <form method="GET" action="index.html">
-                            <div id="search0" class="search input-group">
-                                <div class="select_category filter_type icon-select">
-                                    <select class="no-border" name="category_id">
-                                        <option value="0">Cửa hàng</option>
-                                        <option value="78">227 Nguyễn văn cừ, HCM</option>
-                                    </select>
+                        <form method="GET" action="/search">
+                            <div id="search" class="search input-group text-center ">
+                                <div class="select_category filter_type icon-select">Product Name:
                                 </div>
 
                                 <input class="autosearch-input form-control" type="text" value="" size="50"
@@ -133,7 +129,7 @@
                                 <div class="shopcart">
                                     <span class="handle pull-left"></span>
                                     <span class="title">My cart</span>
-                                    <p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
+                                    <p class="text-shopping-cart cart-total-full"> {{cartLength}} - {{cartTotal}} </p>
                                 </div>
                             </a>
 
