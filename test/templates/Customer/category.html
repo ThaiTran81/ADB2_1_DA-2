@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<!-- Basic page needs
+		============================================ -->
+		<title>Market</title>
+		<meta charset="utf-8">
+		<meta name="keywords"
+			  content="boostrap, responsive, html5, css3, jquery, theme, multicolor, parallax, retina, business"/>
+		<meta name="author" content="Magentech">
+		<meta name="robots" content="index, follow"/>
+
+		<!-- Mobile specific metas
+		============================================ -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Favicon
+		============================================ -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144"
+			  href="../../assets/Customer/ico/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114"
+			  href="../../assets/Customer/ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72"
+			  href="../../assets/Customer/ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="../../assets/Customer/ico/apple-touch-icon-57-precomposed.png">
+		<link rel="shortcut icon" href="../../assets/Customer/ico/favicon.png">
+
+		<!-- Google web fonts
+		============================================ -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+
+		<!-- Libs CSS
+		============================================ -->
+		<link rel="stylesheet" href="../../assets/Customer/css/bootstrap/css/bootstrap.min.css">
+		<link href="../../assets/Customer/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="../../assets/Customer/js/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<link href="../../assets/Customer/js/owl-carousel/owl.carousel.css" rel="stylesheet">
+		<link href="../../assets/Customer/css/themecss/lib.css" rel="stylesheet">
+		<link href="../../assets/Customer/js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+
+		<!-- Theme CSS
+		============================================ -->
+		<link href="../../assets/Customer/css/themecss/so_megamenu.css" rel="stylesheet">
+		<link href="../../assets/Customer/css/themecss/so-categories.css" rel="stylesheet">
+		<link href="../../assets/Customer/css/themecss/so-listing-tabs.css" rel="stylesheet">
+		<link href="../../assets/Customer/css/footer1.css" rel="stylesheet">
+		<link href="../../assets/Customer/css/header1.css" rel="stylesheet">
+		<link id="color_scheme" href="../../assets/Customer/css/theme.css" rel="stylesheet">
+
+		<link href="../../assets/Customer/css/responsive.css" rel="stylesheet">
+
+
+	</head>
+
+	<body class="res layout-subpage banners-effect-6">
+		<div id="wrapper" class="wrapper-full ">
+			<!-- Header Container  -->
+			<header id="header" class=" variantleft type_1">
+				<!-- Header Top -->
+				<div class="header-top">
+					<div class="container">
+						<div class="row">
+							<div class="header-top-right collapsed-block text-right  col-sm-6 col-xs-12 compact-hidden pull-right">
+								<h5 class="tabBlockTitle visible-xs">More<a class="expander " href="#TabBlock-1"><i
+										class="fa fa-angle-down"></i></a></h5>
+								<div class="tabBlock" id="TabBlock-1">
+									<ul class="top-link list-inline">
+										<li class="account" id="my_account">
+											<a href="#" title="My Account" class="btn btn-xs dropdown-toggle"
+											   data-toggle="dropdown"> <span>My Account</span> <span
+													class="fa fa-angle-down"></span></a>
+											<ul class="dropdown-menu ">
+												<li><a href="register.html"><i class="fa fa-user"></i> Đăng ký</a></li>
+												<li><a href="login.html"><i class="fa fa-pencil-square-o"></i> Đăng nhập</a>
+												</li>
+											</ul>
+										</li>
+										<li class="checkout"><a href="checkout.html" class="top-link-checkout"
+																title="Checkout"><span>Thanh toán</span></a></li>
+										<li class="login"><a href="cart.html"
+															 title="Shopping Cart"><span>Giỏ hàng</span></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //Header Top -->
+
+				<!-- Header center -->
+				<div class="header-center left">
+					<div class="container">
+						<div class="row">
+							<!-- Logo -->
+							<div class="navbar-logo col-md-3 col-sm-12 col-xs-12">
+								<a href="index.html"><img src="../../assets/Customer/image/demo/logos/theme_logo.png"
+														  title="Your Store" alt="Your Store"/></a>
+							</div>
+							<!-- //end Logo -->
+
+							<!-- Search -->
+							<div id="sosearchpro" class="col-sm-7 search-pro">
+								<form method="GET" action="index.html">
+									<div id="search0" class="search input-group">
+										<div class="select_category filter_type icon-select">
+											<select class="no-border" name="category_id">
+												<option value="0">Cửa hàng</option>
+												<option value="78">227 Nguyễn văn cừ, HCM</option>
+											</select>
+										</div>
+
+										<input class="autosearch-input form-control" type="text" value="" size="50"
+											   autocomplete="off" placeholder="Search" name="search">
+										<span class="input-group-btn">
+						<button type="submit" class="button-search btn btn-primary" name="submit_search"><i
+								class="fa fa-search"></i></button>
+						</span>
+									</div>
+									<input type="hidden" name="route" value="product/search"/>
+								</form>
+							</div>
+							<!-- //end Search -->
+
+							<!-- Secondary menu -->
+							<div class="col-md-2 col-sm-5 col-xs-12 shopping_cart pull-right">
+								<!--cart-->
+								<div id="cart" class=" btn-group btn-shopping-cart">
+									<a data-loading-text="Loading..." class="top_cart dropdown-toggle"
+									   data-toggle="dropdown">
+										<div class="shopcart">
+											<span class="handle pull-left"></span>
+											<span class="title">My cart</span>
+											<p class="text-shopping-cart cart-total-full">2 item(s) - $1,262.00 </p>
+										</div>
+									</a>
+
+									<ul class="tab-content content dropdown-menu pull-right shoppingcart-box"
+										role="menu">
+
+										<li>
+											<table class="table table-striped">
+												<tbody>
+												<tr>
+													<td class="text-center" style="width:70px">
+														<a href="product.html"> <img
+																src="../../assets/Customer/image/demo/shop/product/35.jpg"
+																style="width:70px" alt="Filet Mign" title="Filet Mign"
+																class="preview"> </a>
+													</td>
+													<td class="text-left"><a class="cart_product_name"
+																			 href="product.html">Filet Mign</a></td>
+													<td class="text-center"> x1</td>
+													<td class="text-center"> $1,202.00</td>
+													<td class="text-right">
+														<a href="product.html" class="fa fa-edit"></a>
+													</td>
+													<td class="text-right">
+														<a onclick="cart.remove('2');"
+														   class="fa fa-times fa-delete"></a>
+													</td>
+												</tr>
+												<tr>
+													<td class="text-center" style="width:70px">
+														<a href="product.html"> <img
+																src="../../assets/Customer/image/demo/shop/product/141.jpg"
+																style="width:70px" alt="Canon EOS 5D"
+																title="Canon EOS 5D" class="preview"> </a>
+													</td>
+													<td class="text-left"><a class="cart_product_name"
+																			 href="product.html">Canon EOS 5D</a></td>
+													<td class="text-center"> x1</td>
+													<td class="text-center"> $60.00</td>
+													<td class="text-right">
+														<a href="product.html" class="fa fa-edit"></a>
+													</td>
+													<td class="text-right">
+														<a onclick="cart.remove('1');"
+														   class="fa fa-times fa-delete"></a>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</li>
+										<li>
+											<div>
+												<table class="table table-bordered">
+													<tbody>
+													<tr>
+														<td class="text-left"><strong>Sub-Total</strong>
+														</td>
+														<td class="text-right">$1,060.00</td>
+													</tr>
+													<tr>
+														<td class="text-left"><strong>Eco Tax (-2.00)</strong>
+														</td>
+														<td class="text-right">$2.00</td>
+													</tr>
+													<tr>
+														<td class="text-left"><strong>VAT (20%)</strong>
+														</td>
+														<td class="text-right">$200.00</td>
+													</tr>
+													<tr>
+														<td class="text-left"><strong>Total</strong>
+														</td>
+														<td class="text-right">$1,262.00</td>
+													</tr>
+													</tbody>
+												</table>
+												<p class="text-right"><a class="btn view-cart" href="cart.html"><i
+														class="fa fa-shopping-cart"></i>View Cart</a>&nbsp;&nbsp;&nbsp;
+													<a class="btn btn-mega checkout-cart" href="checkout.html"><i
+															class="fa fa-share"></i>Checkout</a></p>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<!--//cart-->
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</header>
+			<!-- //Header Container  -->
+			<!-- Main Container  -->
+			<div class="main-container container">
+				<ul class="breadcrumb">
+					<li><a href="#"><i class="fa fa-home"></i></a></li>
+					<li><a href="#">Smartphone & Tablets</a></li>
+				</ul>
+
+				<div class="row">
+					<!--Left Part Start -->
+					<aside class="col-sm-4 col-md-3" id="column-left">
+						<div class="module menu-category titleLine">
+							<h3 class="modtitle">Categories</h3>
+							<div class="modcontent">
+								<div class="box-category">
+
+									<ul id="cat_accordion" class="list-group">
+										<li class="hadchild"><a href="category.html" class="cutom-parent">Jewellery</a>
+											<span class="button-view  fa fa-plus-square-o"></span>
+											<ul style="display: none;">
+												<li><a href="category.html">Sub Categories</a></li>
+												<li><a href="category.html">Sub Categories</a></li>
+												<li><a href="category.html">Sub Categories</a></li>
+												<li><a href="category.html">Sub Categories</a></li>
+												<li><a href="category.html">Sub Categories</a></li>
+											</ul>
+										</li>
+										<li class=""><a href="category.html" class="cutom-parent">Home &amp;
+											Garden</a><span class="dcjq-icon"></span></li>
+										<li class=""><a href="category.html" class="cutom-parent">Wines &amp;
+											Spirits</a> <span class="dcjq-icon"></span></li>
+									</ul>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="module">
+							<div class="modcontent clearfix">
+								<div class="banners">
+									<div>
+										<a href="#"><img
+												src="../../assets/Customer/image/demo/cms/left-image-static.png"
+												alt="left-image"></a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</aside>
+					<!--Left Part End -->
+
+					<!--Middle Part Start-->
+					<div id="content" class="col-md-9 col-sm-8">
+						<div class="products-category">
+							<div class="category-derc">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="banners">
+											<div>
+												<a href="#"><img
+														src="../../assets/Customer/image/demo/shop/category/electronic-cat.png"
+														alt="Apple Cinema 30&quot;"><br></a>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!-- Filters -->
+							<div class="product-filter filters-panel">
+								<div class="row">
+									<div class="col-md-2 visible-lg">
+										<div class="view-mode">
+											<div class="list-view">
+												<button class="btn btn-default grid active" data-view="grid"
+														data-toggle="tooltip" data-original-title="Grid"><i
+														class="fa fa-th"></i></button>
+												<button class="btn btn-default list" data-view="list"
+														data-toggle="tooltip" data-original-title="List"><i
+														class="fa fa-th-list"></i></button>
+											</div>
+										</div>
+									</div>
+									<div class="short-by-show form-inline text-right col-md-7 col-sm-8 col-xs-12">
+										<div class="form-group short-by">
+											<label class="control-label" for="input-sort">Sort By:</label>
+											<select id="input-sort" class="form-control"
+													onchange="location = this.value;">
+												<option value="" selected="selected">Default</option>
+												<option value="">Name (A - Z)</option>
+												<option value="">Name (Z - A)</option>
+												<option value="">Price (Low &gt; High)</option>
+												<option value="">Price (High &gt; Low)</option>
+												<option value="">Rating (Highest)</option>
+												<option value="">Rating (Lowest)</option>
+												<option value="">Model (A - Z)</option>
+												<option value="">Model (Z - A)</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label class="control-label" for="input-limit">Show:</label>
+											<select id="input-limit" class="form-control"
+													onchange="location = this.value;">
+												<option value="" selected="selected">9</option>
+												<option value="">25</option>
+												<option value="">50</option>
+												<option value="">75</option>
+												<option value="">100</option>
+											</select>
+										</div>
+									</div>
+									<div class="box-pagination col-md-3 col-sm-4 col-xs-12 text-right">
+										<ul class="pagination">
+											<li class="active"><span>1</span></li>
+											<li><a href="">2</a></li>
+											<li><a href="">&gt;</a></li>
+											<li><a href="">&gt;|</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- //end Filters -->
+							<!--changed listings-->
+							<div class="products-list row grid">
+
+								<div class="product-layout col-md-4 col-sm-6 col-xs-12 ">
+									<div class="product-item-container">
+										<div class="left-block">
+											<div class="product-image-container lazy second_img ">
+												<img data-src="image/demo/shop/product/E1.jpg"
+													 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+													 alt="Apple Cinema 30&quot;" class="img-responsive"/>
+												<img data-src="image/demo/shop/product/E2.jpg"
+													 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+													 alt="Apple Cinema 30&quot;" class="img_0 img-responsive"/>
+											</div>
+											<!--Sale Label-->
+											<span class="label label-sale">Sale</span>
+										</div>
+
+
+										<div class="right-block">
+											<div class="caption">
+												<h4><a href="product.html">Samsung Galaxy Tab 10.1</a></h4>
+												<div class="ratings">
+													<div class="rating-box">
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+													</div>
+												</div>
+
+												<div class="price">
+													<span class="price-new">$65.00</span>
+													<span class="price-old">$145.00</span>
+													<span class="label label-percent">-20%</span>
+												</div>
+												<div class="description item-desc hidden">
+													<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+														nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+														erat, sed diam voluptua. At vero eos et accusam et justo duo
+														dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+														sanctus est . </p>
+												</div>
+											</div>
+
+											<div class="button-group">
+												<button class="addToCart" type="button" data-toggle="tooltip"
+														title="Add to Cart" onclick="cart.add('42', '1');"><i
+														class="fa fa-shopping-cart"></i> <span class="hidden-xs">Add to Cart</span>
+												</button>
+											</div>
+										</div><!-- right block -->
+
+									</div>
+								</div>
+								<div class="clearfix visible-sm-block"></div>
+								<div class="clearfix visible-xs-block"></div>
+
+								<div class="product-layout col-md-4 col-sm-6 col-xs-12 ">
+									<div class="product-item-container">
+										<div class="left-block">
+											<div class="product-image-container lazy second_img ">
+												<img data-src="image/demo/shop/product/E1.jpg"
+													 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+													 alt="Apple Cinema 30&quot;" class="img-responsive"/>
+												<img data-src="image/demo/shop/product/E2.jpg"
+													 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+													 alt="Apple Cinema 30&quot;" class="img_0 img-responsive"/>
+											</div>
+											<!--Sale Label-->
+											<span class="label label-sale">Sale</span>
+										</div>
+
+
+										<div class="right-block">
+											<div class="caption">
+												<h4><a href="product.html">Samsung Galaxy Tab 10.1</a></h4>
+												<div class="ratings">
+													<div class="rating-box">
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+														<span class="fa fa-stack"><i
+																class="fa fa-star-o fa-stack-1x"></i></span>
+													</div>
+												</div>
+
+												<div class="price">
+													<span class="price-new">$65.00</span>
+													<span class="price-old">$145.00</span>
+													<span class="label label-percent">-20%</span>
+												</div>
+												<div class="description item-desc hidden">
+													<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+														nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+														erat, sed diam voluptua. At vero eos et accusam et justo duo
+														dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+														sanctus est . </p>
+												</div>
+											</div>
+
+											<div class="button-group">
+												<button class="addToCart" type="button" data-toggle="tooltip"
+														title="Add to Cart" onclick="cart.add('42', '1');"><i
+														class="fa fa-shopping-cart"></i> <span class="hidden-xs">Add to Cart</span>
+												</button>
+											</div>
+										</div><!-- right block -->
+
+									</div>
+								</div>
+
+							</div>                    <!--// End Changed listings-->
+							<!-- Filters -->
+							<div class="product-filter product-filter-bottom filters-panel">
+								<div class="row">
+									<div class="col-md-2 hidden-sm hidden-xs">
+									</div>
+									<div class="short-by-show text-center col-md-7 col-sm-8 col-xs-12">
+										<div class="form-group" style="margin: 7px 10px">Showing 1 to 9 of 10 (2
+											Pages)
+										</div>
+									</div>
+									<div class="box-pagination col-md-3 col-sm-4 text-right">
+										<ul class="pagination">
+											<li class="active"><span>1</span></li>
+											<li><a href="#">2</a></li>
+											<li><a href="#">&gt;</a></li>
+											<li><a href="#">&gt;|</a></li>
+										</ul>
+									</div>
+
+								</div>
+							</div>
+							<!-- //end Filters -->
+
+						</div>
+
+					</div>
+
+
+				</div>
+				<!--Middle Part End-->
+			</div>
+			<!-- //Main Container -->
+
+
+			<!-- Footer Container -->
+			<footer class="footer-container type_footer1">
+				<!-- Footer Top Container -->
+				<section class="footer-top">
+					<div class="container content">
+						<div class="row">
+							<div class="col-sm-6 col-md-3 box-information">
+								<div class="module clearfix">
+									<h3 class="modtitle">Information</h3>
+									<div class="modcontent">
+										<ul class="menu">
+											<li><a href="about-us.html">About Us</a></li>
+											<li><a href="faq.html">FAQ</a></li>
+											<li><a href="order-history.html">Order history</a></li>
+											<li><a href="order-information.html">Order information</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-3 box-service">
+								<div class="module clearfix">
+									<h3 class="modtitle">Customer Service</h3>
+									<div class="modcontent">
+										<ul class="menu">
+											<li><a href="contact.html">Contact Us</a></li>
+											<li><a href="return.html">Returns</a></li>
+											<li><a href="sitemap.html">Site Map</a></li>
+											<li><a href="my-account.html">My Account</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-3 box-account">
+								<div class="module clearfix">
+									<h3 class="modtitle">My Account</h3>
+									<div class="modcontent">
+										<ul class="menu">
+											<li><a href="#">Brands</a></li>
+											<li><a href="gift-voucher.html">Gift Vouchers</a></li>
+											<li><a href="#">Affiliates</a></li>
+											<li><a href="#">Specials</a></li>
+											<li><a href="#" target="_blank">Our Blog</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-3 collapsed-block ">
+								<div class="module clearfix">
+									<h3 class="modtitle">Contact Us </h3>
+									<div class="modcontent">
+										<ul class="contact-address">
+											<li><span class="fa fa-map-marker"></span> My Company, 42 avenue des Champs
+												Elysées 75000 Paris France
+											</li>
+											<li><span class="fa fa-envelope-o"></span> Email: <a href="#">
+												sales@yourcompany.com</a></li>
+											<li><span class="fa fa-phone">&nbsp;</span> Phone 1: 0123456789 <br>Phone 2:
+												(123) 4567890
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- /Footer Top Container -->
+
+				<!-- Footer Bottom Container -->
+				<div class="footer-bottom-block ">
+					<div class=" container">
+						<div class="row">
+							<div class="col-sm-5 copyright-text"> © 2016 Market. All Rights Reserved.</div>
+							<div class="col-sm-7">
+								<div class="block-payment text-right"><img
+										src="../../assets/Customer/image/demo/content/payment.png" alt="payment"
+										title="payment"></div>
+							</div>
+							<!--Back To Top-->
+							<div class="back-to-top"><i class="fa fa-angle-up"></i><span> Top </span></div>
+
+						</div>
+					</div>
+				</div>
+				<!-- /Footer Bottom Container -->
+
+
+			</footer>
+			<!-- //end Footer Container -->
+
+		</div>
+
+
+		<!-- Cpanel Block -->
+		<div id="sp-cpanel_btn" class="isDown visible-lg">
+			<i class="fa fa-cog"></i>
+		</div>
+
+		<!-- Include Libs & Plugins
+			============================================ -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="../../assets/Customer/js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/owl-carousel/owl.carousel.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/themejs/libs.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/unveil/jquery.unveil.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/countdown/jquery.countdown.min.js"></script>
+		<script type="text/javascript"
+				src="../../assets/Customer/../../assets/Customer/js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/datetimepicker/moment.js"></script>
+		<script type="text/javascript"
+				src="../../assets/Customer/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/jquery-ui/jquery-ui.min.js"></script>
+
+
+		<!-- Theme files
+		============================================ -->
+
+
+		<script type="text/javascript" src="../../assets/Customer/js/themejs/so_megamenu.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/themejs/addtocart.js"></script>
+		<script type="text/javascript" src="../../assets/Customer/js/themejs/application.js"></script>
+		<script type="text/javascript">
+            // Check if Cookie exists
+            if ($.cookie('display')) {
+                view = $.cookie('display');
+            } else {
+                view = 'grid';
+            }
+            if (view) display(view);
+            //--></script>
+	</body>
+</html>
