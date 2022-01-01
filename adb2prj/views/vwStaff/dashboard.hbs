@@ -4,42 +4,24 @@
         <div class="row">
             <div class="col-md-12 col-lg-12">
                 <div class="card table-widget">
-                    <form class="m-3">
+                    <form method="post" class="m-3">
                         <div class="row justify-content-start">
                             <div class="col-6">
                                 <input class="form-control" type="text"
                                        placeholder="Tra cứu theo mã đơn hàng.."
-                                       id="search" aria-label="Search">
+                                       id="search" aria-label="Search" name="search">
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-outline-primary m-b-xs">Tìm kiếm
+                                <button type="submit" class="btn btn-outline-primary m-b-xs">Tìm kiếm
                                 </button>
                             </div>
                             <div class="col-4">
-                                <button type="button" class="btn btn-outline-primary m-b-xs">Xem tất cả hoá
+                                <button formaction="/dashboard" formmethod="get" class="btn btn-outline-primary m-b-xs">Xem tất cả hoá
                                     đơn gần đây
                                 </button>
                             </div>
                         </div>
                     </form>
-                    <!--pagination-->
-                    <div class="text-center">
-                        <ul class="pagination d-flex justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
 
                     <div class="card-body">
                         <div class="table-responsive fix-head">

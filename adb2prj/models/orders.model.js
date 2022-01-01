@@ -2,6 +2,18 @@ import config from "../utils/database-config.js";
 import sql from "mssql";
 
 export default {
+    async findAllOrder() {
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query("SELECT * FROM [Order]");
+
+            return result.recordset;
+        }catch(err){
+            console.log(err)
+            return null;
+        }
+    },
     async findOrderByOrderID(orderid) {
         try{
             let pool = await sql.connect(config);
@@ -59,10 +71,11 @@ export default {
             let result = await pool.request()
                 .input('orderid', sql.Int, entity.orderID)
                 .input('empid', sql.Int, entity.empid)
-                .execute("updateOrderWithEmpID");
+                .query("UPDATE dbo.[Order] SET empID = @empid WHERE orderID = @orderid ");
 
             console.log(result);
-            return true;
+
+
         }catch(err){
             console.log(err)
             return null;
@@ -88,6 +101,17 @@ export default {
                 .input('orderID', sql.Int, orderID)
                 .query("SELECT sum(total) as totaldetail FROM Order_detail "
                     + "where orderID = @orderID")
+            return result.recordset;
+        }catch(err){
+            console.log(err)
+            return null;
+        }
+    },
+    async statisticAll(){
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .execute("DoanhThuThang")
             return result.recordset;
         }catch(err){
             console.log(err)

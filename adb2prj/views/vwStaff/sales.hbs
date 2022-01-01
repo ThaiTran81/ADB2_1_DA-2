@@ -1,0 +1,31 @@
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card table-widget">
+                    <div class="card-body">
+                        <div class="table-responsive fix-head">
+                            <h1 class="text-center">Bảng thông kế doanh số:</h1>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Thời gian</th>
+                                    <th scope="col">Doanh thu</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each items}}
+                                    <tr>
+                                        <td>#{{month}} - {{year}}</td>
+                                        <td>{{total}}</td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

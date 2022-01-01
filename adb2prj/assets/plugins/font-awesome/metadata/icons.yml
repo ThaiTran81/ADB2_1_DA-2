@@ -3423,7 +3423,7 @@ credit-card:
   search:
     terms:
       - buy
-      - checkout
+      - checkout.hbs
       - credit-card-alt
       - debit
       - money
@@ -8996,7 +8996,7 @@ money-bill:
     terms:
       - buy
       - cash
-      - checkout
+      - checkout.hbs
       - money
       - payment
       - price
@@ -9013,7 +9013,7 @@ money-bill-alt:
     terms:
       - buy
       - cash
-      - checkout
+      - checkout.hbs
       - money
       - payment
       - price
@@ -11380,7 +11380,7 @@ shopping-cart:
   search:
     terms:
       - buy
-      - checkout
+      - checkout.hbs
       - payment
       - purchase
   styles:

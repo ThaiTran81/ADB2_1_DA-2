@@ -22,7 +22,17 @@ export default {
                 .input('offset', sql.Int, offset)
                 .execute("SelectProductWithOffset");
 
+            for (const record of result.recordset) {
+                let recordResult = await pool.request()
+                    .input('proID', sql.Int, record.proID)
+                    .execute("SelectPriceProductByProID");
+                record.date = recordResult.recordset[0].date;
+                record.price = recordResult.recordset[0].price;
+                record.discount = recordResult.recordset[0].discount;
+
+            }
             return result.recordset;
+
         } catch (err) {
             console.log(err)
             return null;
@@ -92,6 +102,20 @@ export default {
             console.log(err)
             return null;
         }
-    }
+    },
+    async getTypeName(tid) {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('tid', sql.Int, tid)
+                .query("SELECT tName from ProductType where tId=@tid");
+
+            return result.recordset[0].tName;
+        } catch (err) {
+            console.log(err)
+            return null;
+        }
+    },
+
 };
 

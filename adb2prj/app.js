@@ -54,7 +54,7 @@ app.engine('hbs', engine({
         isZero(value) {
             return options.fn(value <= 0);
         },
-        equal(varr, value, options){
+        equal(varr, value, options) {
             return options.fn(varr == value);
         }
     }
@@ -70,7 +70,7 @@ app.get('/', async function (req, res) {
     // let products = await productsModels.findAllProduct();
     let limit = 15
     let curPage = parseInt(req.query.page) || 1;
-    if (curPage <= 0){
+    if (curPage <= 0) {
         res.redirect('/');
         return;
     }
@@ -80,7 +80,7 @@ app.get('/', async function (req, res) {
     if (productNum.soluong % limit > 0)
         pageNum++;
 
-    let listPages = getListPage(curPage,pageNum);
+    let listPages = getListPage(curPage, pageNum);
 
     let products = await productsModels.findAllProductsWithLimitOffset(limit, (curPage - 1) * limit);
     // console.log(products);
@@ -91,14 +91,14 @@ app.get('/', async function (req, res) {
     });
 });
 
-app.get('/search', async function (req, res) {
-
-    console.log(req.body);
-    res.render('home', {
-        layout: 'home.hbs',
-        products, listPages, curPage, limit
-    });
-});
+// app.get('/search', async function (req, res) {
+//
+//     console.log(req.body);
+//     res.render('home', {
+//         layout: 'home.hbs',
+//         products, listPages, curPage, limit
+//     });
+// });
 
 
 app.get('/login', function (req, res) {
@@ -153,27 +153,63 @@ app.post('/register', async function (req, res) {
 });
 
 app.get('/cart/add', async function (req, res) {
-    console.log(req.query.proID);
+
+    let productsItem = req.query;
+    productsItem.quantity = 1;
     req.session.cart.push({
-        proID: req.query.proID
+        productsItem
     });
 
-    res.redirect('/');
+    res.redirect(req.cookies);
+});
+
+app.get('/dashboard/:oid', async function (req, res) {
+    if (req.session.account === null) {
+        res.redirect('/');
+    } else {
+        let oid = req.params.oid || 0;
+        console.log(oid);
+        if (oid !== 0) {
+            let list = await orderModels.findOrderByOrderID(oid);
+            res.render('vwStaff/dashboard', {
+                layout: 'staff.hbs',
+                list
+            });
+        } else {
+            let total = await orderModels.statisticRevenue();
+            let list = await orderModels.findOrderByID(req.session.account.userid);
+            res.render('vwStaff/dashboard', {
+                layout: 'staff.hbs',
+                list,
+                total
+            });
+        }
+
+    }
 });
 
 app.get('/dashboard', async function (req, res) {
     if (req.session.account === null) {
         res.redirect('/');
     } else {
-        let list = await orderModels.findOrderByID(req.session.account.userid);
+
         let total = await orderModels.statisticRevenue();
+        let list = await orderModels.findOrderByID(req.session.account.userid);
+
+        // let list = await orderModels.findAllOrder();
+        // console.log(list)
+
         res.render('vwStaff/dashboard', {
             layout: 'staff.hbs',
             list,
             total
         });
-
     }
+});
+
+app.post('/dashboard', async function (req, res) {
+    console.log(req.body);
+    res.redirect('/dashboard/' + req.body.search);
 });
 
 app.get('/attendance', async function (req, res) {
@@ -246,9 +282,11 @@ app.get('/attendance/update', async function (req, res) {
     res.redirect('/attendance');
 })
 
-app.get('/sales', function (req, res) {
+app.get('/statistic', async function (req, res) {
+
+    let items = await orderModels.statisticAll();
     res.render('vwStaff/sales', {
-        layout: 'staff.hbs'
+        layout: 'staff.hbs', items
     })
 })
 
@@ -268,11 +306,15 @@ app.get('/order-processing', async function (req, res) {
 })
 
 app.get('/orders/confirm', async function (req, res) {
-    let userid = req.session.account.userid;
-    let orderID = req.query.orderID;
+    let userid = parseInt(req.session.account.userid);
+    let orderID = parseInt(req.query.orderID);
 
-    await orderModels.updateOrderWithEmpID({orderID: orderID, userid: userid});
+    console.log(userid);
+    console.log(orderID);
+
+    await orderModels.updateOrderWithEmpID({orderID, userid});
     res.redirect('/order-processing');
+
 })
 
 app.get('/orders/detail', async function (req, res) {
@@ -296,26 +338,37 @@ app.get('/products/byType/:tid', async function (req, res) {
     let limit = 15;
     let curPage = parseInt(req.query.page) || 1;
 
-    if (curPage <= 0){
+    if (curPage <= 0) {
         res.redirect('/');
         return;
     }
 
     let productNum = await productsModels.findQuantityTypeID(tid);
-    let pageNum = Math.floor( productNum.soluong/ limit);
+    let pageNum = Math.floor(productNum.soluong / limit);
     if (productNum.soluong % limit > 0)
         pageNum++;
-    let listPages = getListPage(curPage,pageNum);
-    let products = await productsModels.findProductsByTypeID(tid, limit , (curPage - 1)*limit);
+    let listPages = getListPage(curPage, pageNum);
+    let products = await productsModels.findProductsByTypeID(tid, limit, (curPage - 1) * limit);
 
+    console.log(products)
     let url = req.url.split("?")[0];
-
+    let tName = await productsModels.getTypeName(tid);
     res.render('vwProducts/byType', {
         layout: 'home.hbs',
-        products,  listPages,url
+        products, listPages, url, tName
     })
 })
 
+app.get('/checkout', async function (req, res) {
+
+    let products = req.session.cart;
+    console.log(products);
+
+    res.render('vwOrders/checkout', {
+        layout: 'checkout.hbs',
+        products
+    })
+})
 
 
 const port = 3000;
@@ -323,7 +376,7 @@ app.listen(port, function () {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
-function getListPage(curPage, pageNum){
+function getListPage(curPage, pageNum) {
 
     let listPages = [];
     let i = curPage - 2;
@@ -331,15 +384,14 @@ function getListPage(curPage, pageNum){
     if (i <= 0) {
         i = 1;
         endPage += 2;
-    }
-    else if(i >= 3){
+    } else if (i >= 3) {
         listPages.push({
             value: 1, isCur: false
         });
         listPages.push({
             value: "...", isCur: false
         })
-    }else if(i==2){
+    } else if (i == 2) {
         listPages.push({
             value: 1, isCur: false
         });
