@@ -1,0 +1,80 @@
+<!--main content-->
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card table-widget">
+                    <form class="m-3">
+                        <div class="row justify-content-start">
+                            <div class="col-6">
+                                <input class="form-control" type="text"
+                                       placeholder="Tra cứu theo mã đơn hàng.."
+                                       id="search" aria-label="Search">
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-outline-primary m-b-xs">Tìm kiếm
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary m-b-xs">Xem tất cả hoá
+                                    đơn gần đây
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--pagination-->
+                    <div class="text-center">
+                        <ul class="pagination d-flex justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive fix-head">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã hoá đơn</th>
+                                    <th scope="col">Mã khách hàng</th>
+                                    <th scope="col">Ngày lập</th>
+                                    <th scope="col">Giảm giá</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Tình trạng thanh toán</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each list}}
+                                    <tr>
+                                        <td>#{{orderID}}</td>
+                                        <td>#{{uID}}</td>
+                                        <td>{{formatDateTime dateBill}}</td>
+                                        <td>{{discount}}</td>
+                                        <td>{{total}}</td>
+                                        {{#if isPay}}
+                                            <td><span class="badge bg-info">Đã thanh toán</span></td>
+                                        {{else}}
+                                            <td><span class="badge bg-info">Chưa thanh toán</span></td>
+                                        {{/if}}
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

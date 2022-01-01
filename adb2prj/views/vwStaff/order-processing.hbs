@@ -1,0 +1,22 @@
+<!--main content-->
+<div class="page-content">
+    <div class="main-wrapper">
+        <div class="row">
+
+            <div class="card col-12">
+                {{#each list}}
+                    <div class="card-body">
+                        <h5 class="card-title">Mã đơn hàng: #{{orderID}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Mã khách hàng:#{{uID}}</h6>
+                        <p class="card-text">Ngày lập đơn:
+                            <span class="text-danger bold">{{formatDateTime dateBill}}</span>
+                        </p>
+                        <a href="/orders/confirm?orderID={{orderID}}" class="btn btn-primary">Xác nhận đơn hàng</a>
+                        <a href="/orders/detail?orderID={{orderID}}" class="btn btn-outline-primary">Xem chi tiết đơn hàng</a>
+                    </div>
+                {{/each}}
+            </div>
+
+        </div>
+    </div>
+</div>

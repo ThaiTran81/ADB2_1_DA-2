@@ -1,6 +1,4 @@
-﻿
-
-USE qlbh
+﻿USE qlbh
 GO
 
 IF DB_NAME() <> N'qlbh' SET NOEXEC ON

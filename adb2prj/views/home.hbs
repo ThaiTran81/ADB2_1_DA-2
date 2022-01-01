@@ -1,0 +1,190 @@
+<!-- Main Container  -->
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="/">Home Page</a></li>
+    </ul>
+
+    <div class="row">
+        <!--Left Part Start -->
+        <aside class="col-sm-4 col-md-3" id="column-left">
+            <div class="module menu-category titleLine">
+                <h3 class="modtitle">Categories</h3>
+                <div class="modcontent">
+                    <div class="box-category">
+                        <ul class="list-group">
+                            {{#each categories}}
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#{{categoryId}}">{{categoryName}}</a>
+                                    </h4>
+                                </div>
+                                <div id="{{categoryId}}" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        {{#each type}}
+                                            <li class="list-group-item">
+                                                <a href="/products/byType/{{tId}}">{{tName}}</a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="module">
+                <div class="modcontent clearfix">
+                    <div class="banners">
+                        <div>
+                            <a href="#"><img
+                                    src="/assets/Customer/image/demo/cms/left-image-static.png"
+                                    alt="left-image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!--Left Part End -->
+
+        <!--Middle Part Start-->
+        <div id="content" class="col-md-9 col-sm-8">
+            <div class="products-category">
+                <div class="category-derc">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="banners">
+                                <div>
+                                    <a href="#"><img
+                                            src="/assets/Customer/image/demo/shop/category/electronic-cat.png"
+                                            alt="Apple Cinema 30&quot;"><br></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Filters -->
+                <div class="product-filter filters-panel">
+                    <div class="row">
+
+                        <div class="short-by-show form-inline text-center col-md-7 col-sm-8 col-xs-12">
+                            <div class="form-group short-by">
+                                <label class="control-label" for="input-sort">Sort By:</label>
+                                <select id="input-sort" class="form-control"
+                                        onchange="location = this.value;">
+                                    <option value="" selected="selected">Default</option>
+                                    <option value="">Name (A - Z)</option>
+                                    <option value="">Name (Z - A)</option>
+                                    <option value="">Price (Low &gt; High)</option>
+                                    <option value="">Price (High &gt; Low)</option>
+                                    <option value="">Rating (Highest)</option>
+                                    <option value="">Rating (Lowest)</option>
+                                    <option value="">Model (A - Z)</option>
+                                    <option value="">Model (Z - A)</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="box-pagination col-md-5 col-sm-6 col-xs-12 text-right">
+                            <ul class="pagination">
+                                {{#each listPages}}
+                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+                <!--changed listings-->
+
+                <div class="products-list row grid text-truncate">
+                    {{#each products}}
+                        <div class="product-layout col-md-4 col-sm-6 col-xs-12">
+                            <div class="product-item-container">
+                                <div class="left-block">
+                                    <div class="product-image-container lazy second_img ">
+                                        <img data-src="/assets/Customer/image/demo/shop/product/E1.jpg"
+                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                             alt="Apple Cinema 30&quot;" class="img-responsive"/>
+                                        <img data-src="/assets/Customer/image/demo/shop/product/E2.jpg"
+                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                             alt="Apple Cinema 30&quot;" class="img_0 img-responsive"/>
+                                    </div>
+                                    <span class="label label-sale">Sale {{proID}}</span>
+                                </div>
+                                <div class="right-block">
+                                    <div class="caption">
+                                        <h4><a href="/products/detail?proID={{proID}}">{{title}}</a></h4>
+                                        <div class="ratings">
+                                            <div class="rating-box">
+                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+                                                        class="fa fa-star-o fa-stack-1x"></i></span>
+                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+                                                        class="fa fa-star-o fa-stack-1x"></i></span>
+                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+                                                        class="fa fa-star-o fa-stack-1x"></i></span>
+                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i
+                                                        class="fa fa-star-o fa-stack-1x"></i></span>
+                                                <span class="fa fa-stack"><i
+                                                        class="fa fa-star-o fa-stack-1x"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="price">
+                                            <span class="price-new">$65.00</span>
+                                            <span class="price-old">$145.00</span>
+                                            <span class="label label-percent">-20%</span>
+                                        </div>
+                                        <div class="description h-100">
+                                            <p>{{{description}}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="button-group text-right">
+                                        <button href="/cart/add?proID={{proID}}" type="submit" method="get"
+                                                class="addToCart" type="button" data-toggle="tooltip"
+                                                title="Add to Cart" onclick="cart.add('42', '1');"><i
+                                                class="fa fa-shopping-cart"></i> <span
+                                                class="hidden-xs" >Add to Cart</span>
+                                        </button>
+                                    </div>
+                                </div><!-- right block -->
+                            </div>
+                        </div>
+                        <div class="clearfix visible-sm-block"></div>
+                        <div class="clearfix visible-xs-block"></div>
+                    {{/each}}
+                </div>
+
+
+                <!--// End Changed listings-->
+                <!-- Filters -->
+                <div class="product-filter product-filter-bottom filters-panel">
+                    <div class="row">
+                        <div class="col-md-2 hidden-sm hidden-xs">
+                        </div>
+                        <div class="short-by-show text-center col-md-5 col-sm-8 col-xs-12">
+                        </div>
+                        <div class="box-pagination col-md-5 col-sm-6 text-right">
+                            <ul class="pagination">
+                                {{#each listPages}}
+                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <!--Middle Part End-->
+</div>
+<!-- //Main Container -->
+
