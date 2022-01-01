@@ -23,10 +23,11 @@
 --CREATE PROCEDURE UpdateAttendance 
 --@uid int,@timeStart DATETIME, @timeEnd DATETIME, @status BIT
 --AS
+--	IF ((SELECT TOP 1 ([status]) FROM dbo.Attendance WHERE CAST (timeStart AS DATE) = cast (@timeStart AS DATE) AND [uid]= @uid) = 1)
+--		SET @status = 1;
 --	UPDATE ATTENDANCE SET timeEnd = @timeEnd,[status] = @status
 --	WHERE CAST (timeStart AS DATE) = cast (@timeStart AS DATE) AND [uid]= @uid
 --GO
-
 
 --CREATE PROCEDURE SelectSpecificAttendance 
 --@uid int,@timeStart DATETIME
@@ -62,43 +63,58 @@
 --END	
 --GO 
 
-CREATE PROCEDURE FindAllSalaryStaffID
-@uid INT	
-AS  
-BEGIN	
-	(SELECT * FROM dbo.Salary WHERE [uid] = @uid)
-END	
-GO  
+--CREATE PROCEDURE SelectStaffStoredID
+--@uid INT	
+--AS  
+--BEGIN	
+--	SELECT TOP 1 storeID FROM dbo.staff WHERE [uID] = @uid;
+--END	
+--GO
 
-CREATE PROCEDURE FindAllSalaryByYear
-@uid INT, @year INT	
-AS  
-BEGIN	
-	(SELECT * FROM dbo.Salary WHERE [uid] = @uid AND YEAR(DateStart) = @year)
-END	
-GO  
+--CREATE PROCEDURE SelectOrderByStoredID
+--@storeid INT	
+--AS  
+--BEGIN	
+--	SELECT orderID,uID,dateBill, isPay FROM [Order] WHERE storeID = @storeid and empID = null;
+--END	
+--GO
 
-EXEC dbo.FindAllSalaryByYear @uid = 315, -- int
-                             @year = 2021 -- int
+--CREATE PROCEDURE updateOrderWithEmpID
+--@orderid INT, @empid INT  	
+--AS  
+--BEGIN	
+--	UPDATE dbo.[Order] SET empID = @empid WHERE @orderid = orderID
+--END	
+--GO
 
-INSERT INTO	dbo.Salary
-(
-    uID,
-    salary,
-    sales,
-    DateStart,
-    DateEnd
-)
-VALUES
-(   315,         -- uID - int
-    1000,       -- salary - float
-    200000,         -- sales - int
-    '2021-12-29', -- DateStart - date
-    GETDATE()  -- DateEnd - date
-    )
+--CREATE PROCEDURE FindAllSalaryStaffID
+--@uid INT	
+--AS  
+--BEGIN	
+--	(SELECT * FROM dbo.Salary WHERE [uid] = @uid)
+--END	
+--GO  
 
+--CREATE PROCEDURE FindAllSalaryByYear
+--@uid INT, @year INT	
+--AS  
+--BEGIN	
+--	(SELECT * FROM dbo.Salary WHERE [uid] = @uid AND YEAR(DateStart) = @year)
+--END	
+--GO  
 
-
+CREATE PROCEDURE SelectProductWithOffset
+@limit INT, @offset INT
+AS
+BEGIN 
+	select top (@limit) * from (
+		SELECT *, ROW_NUMBER() OVER 
+		 (order BY proID) 
+		AS offset
+		from dbo.Product 
+	) AS d WHERE d.offset >= @offset
+END
+GO	
 
 --select top 20 * from (
 --	SELECT *, ROW_NUMBER() OVER 
@@ -110,9 +126,11 @@ VALUES
 --{OFFSET HERE}
 
 
-USE qlbh
-GO 
+SELECT * FROM dbo.ProductType pt
+JOIN dbo.Product p ON p.ptype = pt.tId 
+JOIN dbo.PriceProduct pp ON pp.proID = p.proID
+WHERE category <= 20
 
-SELECT * FROM account WHERE USerid = 315
+proID, pname, title, DESCRIPTION, date, price, discount
 
-SELECT * FROM dbo.Attendance WHERE uid = 315
+	

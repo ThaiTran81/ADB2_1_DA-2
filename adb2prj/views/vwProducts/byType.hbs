@@ -90,7 +90,7 @@
                         <div class="box-pagination col-md-5 col-sm-6 col-xs-12 text-right">
                             <ul class="pagination">
                                 {{#each listPages}}
-                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                    <li value="{{value}}"><a href="{{url}}?page={{value}}" >{{value}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>
@@ -144,10 +144,10 @@
 
                                     <div class="button-group text-right">
                                         <button href="/cart/add?proID={{proID}}" type="submit" method="get"
-                                                class="addToCart" type="button" data-toggle="tooltip"
-                                                title="Add to Cart" onclick="cart.add('42', '1');"><i
-                                                class="fa fa-shopping-cart"></i> <span
-                                                class="hidden-xs" >Add to Cart</span>
+                                        class="addToCart" type="button" data-toggle="tooltip"
+                                        title="Add to Cart" onclick="cart.add('42', '1');"><i
+                                            class="fa fa-shopping-cart"></i> <span
+                                            class="hidden-xs" >Add to Cart</span>
                                         </button>
                                     </div>
                                 </div><!-- right block -->
@@ -170,7 +170,7 @@
                         <div class="box-pagination col-md-5 col-sm-6 text-right">
                             <ul class="pagination">
                                 {{#each listPages}}
-                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                    <li value="{{value}}"><a href="{{url}}?page={{value}}" >{{value}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>

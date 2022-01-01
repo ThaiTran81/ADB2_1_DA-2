@@ -93,6 +93,6 @@ export default {
             console.log(err)
             return null;
         }
-    },
+    }
 };
 

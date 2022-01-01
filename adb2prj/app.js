@@ -3,6 +3,8 @@ import {engine} from "express-handlebars";
 import sections from "express-handlebars-sections";
 import morgan from 'morgan';
 // import bcrypt from "bcryptjs"
+import {dirname} from "path";
+import {fileURLToPath} from "url";
 
 import active_middleware_session from "./middlewares/session.mdw.js";
 import active_middleware_local from "./middlewares/local.mdw.js";
@@ -21,6 +23,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({
     extended: true
 }));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // express session mdw
 active_middleware_session(app);
@@ -143,15 +146,14 @@ app.post('/register', async function (req, res) {
     account.role = 3;
     // let salt = bcrypt.genSaltSync(10);
     // account.password = bcrypt.hashSync(account.password, salt);
-    let ret = await accountModels.addAccount(account);
+    await accountModels.addAccount(account);
     res.render('vwAccounts/login-register', {
         layout: 'accounts.hbs'
     });
 });
 
-
-app.get('/add', async function (req, res) {
-
+app.get('/cart/add', async function (req, res) {
+    console.log(req.query.proID);
     req.session.cart.push({
         proID: req.query.proID
     });
@@ -210,7 +212,7 @@ app.get('/attendance/add', async function (req, res) {
 
 app.get('/salary', async function (req, res) {
     let year = req.query.year || 0;
-    let list = null;
+    let list;
     if (parseInt(year) === 0) {
         list = await salaryModels.findAllByStaffID(req.session.account.userid);
     } else {
@@ -286,6 +288,35 @@ app.get('/orders/detail', async function (req, res) {
         totalDetail: totalDetail[0].totaldetail
     })
 })
+
+app.get('/products/byType/:tid', async function (req, res) {
+    // let userid = req.session.account.userid;
+    let tid = req.params.tid;
+
+    let limit = 15;
+    let curPage = parseInt(req.query.page) || 1;
+
+    if (curPage <= 0){
+        res.redirect('/');
+        return;
+    }
+
+    let productNum = await productsModels.findQuantityTypeID(tid);
+    let pageNum = Math.floor( productNum.soluong/ limit);
+    if (productNum.soluong % limit > 0)
+        pageNum++;
+    let listPages = getListPage(curPage,pageNum);
+    let products = await productsModels.findProductsByTypeID(tid, limit , (curPage - 1)*limit);
+
+    let url = req.url.split("?")[0];
+
+    res.render('vwProducts/byType', {
+        layout: 'home.hbs',
+        products,  listPages,url
+    })
+})
+
+
 
 const port = 3000;
 app.listen(port, function () {
