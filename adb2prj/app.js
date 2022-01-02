@@ -91,14 +91,35 @@ app.get('/', async function (req, res) {
     });
 });
 
-// app.get('/search', async function (req, res) {
-//
-//     console.log(req.body);
-//     res.render('home', {
-//         layout: 'home.hbs',
-//         products, listPages, curPage, limit
-//     });
-// });
+app.get('/search/:page', async function (req, res) {
+
+    let limit = 15
+    let curPage = parseInt(req.params.page) || 1;
+    if (curPage <= 0) {
+        res.redirect('/');
+        return;
+    }
+
+    let productNum = await productsModels.findQuantityBySearch(req.query.key);
+    // console.log(productNum);
+    let pageNum = Math.floor(productNum.soluong / limit);
+    if (productNum.soluong % limit > 0)
+        pageNum++;
+    let keySearch = req.url.split('?')[1];
+
+    let listPages = getListSearchPage(curPage, pageNum, keySearch);
+
+    let products = await productsModels.findAllProductsBySearch(req.query.key, limit, (curPage - 1) * limit);
+
+    res.render('vwProducts/search', {
+        layout: 'home.hbs',
+        products, listPages
+    });
+});
+
+app.post('/search', async function (req, res) {
+    res.redirect('/search/1?key=' + req.body.search);
+});
 
 
 app.get('/login', function (req, res) {
@@ -362,6 +383,43 @@ app.get('/products/byType/:tid', async function (req, res) {
 })
 
 app.get('/checkout', async function (req, res) {
+    let total = 0;
+    let products = req.session.cart;
+    console.log(products);
+    for (const product of products) {
+        total += parseInt(product.productsItem.price) * product.productsItem.quantity;
+        product.productsItem.total =  parseInt(product.productsItem.price) * product.productsItem.quantity;
+    }
+    console.log(total)
+    res.render('vwOrders/checkout', {
+        layout: 'checkout.hbs',
+        products, total
+    })
+})
+
+app.get('/checkout/update/:id', async function (req, res) {
+
+    let products = req.session.cart;
+
+    console.log(req.params.id)
+    console.log(req.body)
+    res.render('vwOrders/checkout', {
+        layout: 'checkout.hbs',
+        products
+    })
+})
+
+app.get('/checkout/delete/:id', async function (req, res) {
+
+    let products = req.session.cart;
+
+    res.render('vwOrders/checkout', {
+        layout: 'checkout.hbs',
+        products
+    })
+})
+
+app.post('/checkout', async function (req, res) {
 
     let products = req.session.cart;
     console.log(products);
@@ -371,7 +429,6 @@ app.get('/checkout', async function (req, res) {
         products
     })
 })
-
 
 const port = 3000;
 app.listen(port, function () {
@@ -416,6 +473,50 @@ function getListPage(curPage, pageNum) {
         });
         listPages.push({
             value: pageNum, isCur: false
+        });
+    }
+    return listPages;
+}
+
+
+function getListSearchPage(curPage, pageNum,key) {
+
+    let listPages = [];
+    let i = curPage - 2;
+    let endPage = curPage + 2;
+    if (i <= 0) {
+        i = 1;
+        endPage += 2;
+    } else if (i >= 3) {
+        listPages.push({
+            value: 1, isCur: false, url: '/search/' + i + '?' + key
+        });
+        listPages.push({
+            value: "...", isCur: false, url: '/search/' + i + '?' + key
+        })
+    } else if (i == 2) {
+        listPages.push({
+            value: 1, isCur: false, url: '/search/' + i + '?' + key
+        });
+    }
+    for (i; i < endPage + 1; i++) {
+        if (i > pageNum)
+            break;
+        listPages.push({
+            value: i, isCur: i === curPage, url: '/search/' + i + '?' + key
+        })
+    }
+    if (i === pageNum) {
+        listPages.push({
+            value: i, isCur: false, url: '/search/' + i + '?' + key
+        });
+    }
+    if (i <= pageNum - 1) {
+        listPages.push({
+            value: "...", isCur: false, url: '/search/' + i + '?' + key
+        });
+        listPages.push({
+            value: pageNum, isCur: false, url: '/search/' + i + '?' + key
         });
     }
     return listPages;

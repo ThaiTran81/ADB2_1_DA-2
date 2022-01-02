@@ -103,7 +103,7 @@
 
                     <!-- Search -->
                     <div id="sosearchpro" class="col-sm-7 search-pro">
-                        <form method="GET" action="/search">
+                        <form method="POST" action="/search">
                             <div id="search" class="search input-group text-center ">
                                 <div class="select_category filter_type icon-select">Product Name:
                                 </div>
@@ -111,7 +111,7 @@
                                 <input class="autosearch-input form-control" type="text" value="" size="50"
                                        autocomplete="off" placeholder="Search" name="search">
                                 <span class="input-group-btn">
-						<button type="submit" class="button-search btn btn-primary" name="submit_search"><i
+						<button type="submit" formaction="/search" class="button-search btn btn-primary" name="submit_search"><i
                                 class="fa fa-search"></i></button>
 						</span>
                             </div>

@@ -86,12 +86,13 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body" >
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
                                             <tr>
                                                 <td class="text-center">Image</td>
+                                                <td class="text-left">Product ID</td>
                                                 <td class="text-left">Product Name</td>
                                                 <td class="text-left">Quantity</td>
                                                 <td class="text-right">Unit Price</td>
@@ -102,23 +103,31 @@
                                             {{#each products}}
                                                 <tr>
                                                     <td class="text-center"><a href="#"><img width="60px" src="/assets/Customer/image/demo/shop/product/E4.jpg" alt="Xitefun Causal Wear Fancy Shoes" title="Xitefun Causal Wear Fancy Shoes" class="img-thumbnail"></a></td>
-                                                    <td class="text-left"><a href="#">{{name}}</a></td>
-                                                    <td class="text-left"><div class="input-group btn-block" style="min-width: 100px;">
-                                                        <input type="text" name="quantity" value="1" size="1" class="form-control">
-                                                        <span class="input-group-btn">
-										<button type="submit" data-toggle="tooltip" title="Update" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
-										<button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onClick=""><i class="fa fa-times-circle"></i></button>
-										</span></div></td>
-                                                    <td class="text-right">$114.35</td>
-                                                    <td class="text-right">$114.35</td>
+                                                    <td class="text-left" id="proID" name="proID"><a href="#" >{{productsItem.proID}}</a></td>
+                                                    <td class="text-left" id="name" name="name"><a href="#" >{{productsItem.name}}</a></td>
+                                                    <td class="text-left">
+                                                        <div class="input-group btn-block" style="min-width: 100px;">
+                                                            <input type="text" name="quantity" value="1" size="1" id="quantity" name="quantity" class="form-control">
+                                                            <span class="input-group-btn">
+                                                                <a class="btn btn-primary" methods="post" data-src="quantity" href="/checkout/update/{{productsItem.proID}}">
+                                                                    <i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                                                <a class="btn btn-danger" href="/">
+                                                                    <i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                                           </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">{{productsItem.price}}</td>
+                                                    <td class="text-right">{{productsItem.total}}</td>
                                                 </tr>
                                             {{/each}}
 
                                             </tbody>
                                             <tfoot>
                                             <tr>
-                                                <td class="text-right" colspan="4"><strong>Total:</strong></td>
-                                                <td class="text-right">$121.85</td>
+
+
+                                                <td class="text-right" colspan="5"><strong>Total:</strong></td>
+                                                <td class="text-right">{{total}}</td>
                                             </tr>
                                             </tfoot>
                                         </table>

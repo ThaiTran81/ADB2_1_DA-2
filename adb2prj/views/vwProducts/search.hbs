@@ -69,28 +69,29 @@
                 <div class="product-filter filters-panel">
                     <div class="row">
 
-                        <div class="short-by-show form-inline text-center col-md-7 col-sm-8 col-xs-12">
-                            <div class="form-group short-by">
-                                <label class="control-label" for="input-sort">Sort By:</label>
-                                <select id="input-sort" class="form-control"
-                                        onchange="location = this.value;">
-                                    <option value="" selected="selected">Default</option>
-                                    <option value="">Name (A - Z)</option>
-                                    <option value="">Name (Z - A)</option>
-                                    <option value="">Price (Low &gt; High)</option>
-                                    <option value="">Price (High &gt; Low)</option>
-                                    <option value="">Rating (Highest)</option>
-                                    <option value="">Rating (Lowest)</option>
-                                    <option value="">Model (A - Z)</option>
-                                    <option value="">Model (Z - A)</option>
-                                </select>
-                            </div>
+<!--                        <div class="short-by-show form-inline text-center col-md-7 col-sm-8 col-xs-12">-->
+<!--                            <div class="form-group short-by">-->
+<!--                                <label class="control-label" for="input-sort">Sort By:</label>-->
+<!--                                <select id="input-sort" class="form-control"-->
+<!--                                        onchange="location = this.value;">-->
+<!--                                    <option value="" selected="selected">Default</option>-->
+<!--                                    <option value="">Name (A - Z)</option>-->
+<!--                                    <option value="">Name (Z - A)</option>-->
+<!--                                    <option value="">Price (Low &gt; High)</option>-->
+<!--                                    <option value="">Price (High &gt; Low)</option>-->
+<!--                                    <option value="">Rating (Highest)</option>-->
+<!--                                    <option value="">Rating (Lowest)</option>-->
+<!--                                    <option value="">Model (A - Z)</option>-->
+<!--                                    <option value="">Model (Z - A) {{search}}</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
 
-                        </div>
-                        <div class="box-pagination col-md-5 col-sm-6 col-xs-12 text-right">
+<!--                        </div>-->
+
+                        <div class="box-pagination col-md-5 col-sm-6 text-right">
                             <ul class="pagination">
                                 {{#each listPages}}
-                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                    <li value="{{value}}"><a href="{{url}}" >{{value}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>
@@ -112,33 +113,33 @@
                                              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                                              alt="Apple Cinema 30&quot;" class="img_0 img-responsive"/>
                                     </div>
-                                        <span class="label label-sale">
+                                    <span class="label label-sale">
 <!--                                            Sale-->
-                                            {{proID}}</span>
+                                        {{proID}}</span>
                                 </div>
                                 <div class="right-block">
                                     <div class="caption">
                                         <h2>{{pname}}</h2>
                                         <h4><a href="/products/detail?proID={{proID}}">{{title}}</a></h4>
-<!--                                        <div class="ratings">-->
-<!--                                            <div class="rating-box">-->
-<!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
-<!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
-<!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
-<!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
-<!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
-<!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
-<!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
-<!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
-<!--                                                <span class="fa fa-stack"><i-->
-<!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="ratings">-->
+                                        <!--                                            <div class="rating-box">-->
+                                        <!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
+                                        <!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
+                                        <!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
+                                        <!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
+                                        <!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
+                                        <!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
+                                        <!--                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i-->
+                                        <!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
+                                        <!--                                                <span class="fa fa-stack"><i-->
+                                        <!--                                                        class="fa fa-star-o fa-stack-1x"></i></span>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
 
                                         <div class="price">
                                             <span class="price-new">price: {{price}}</span>
-<!--                                            <span class="price-old">$145.00</span>-->
-<!--                                            <span class="label label-percent">-20%</span>-->
+                                            <!--                                            <span class="price-old">$145.00</span>-->
+                                            <!--                                            <span class="label label-percent">-20%</span>-->
                                         </div>
                                         <div class="description h-100">
                                             <p>{{{description}}}</p>
@@ -169,7 +170,7 @@
                         <div class="box-pagination col-md-5 col-sm-6 text-right">
                             <ul class="pagination">
                                 {{#each listPages}}
-                                    <li value="{{value}}"><a href="/?page={{value}}" >{{value}}</a></li>
+                                    <li value="{{value}}"><a href="{{url}}" >{{value}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>
