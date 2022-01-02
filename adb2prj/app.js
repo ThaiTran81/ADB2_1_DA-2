@@ -56,7 +56,10 @@ app.engine('hbs', engine({
         },
         equal(varr, value, options) {
             return options.fn(varr == value);
-        }
+        },
+        diff(varr, value, options) {
+            return varr !== value;
+        },
     }
 }));
 
@@ -139,7 +142,7 @@ app.post('/login', async function (req, res) {
         req.session.login = isTrue;
         req.session.account = account;
         req.session.cart = [];
-
+        console.log(account)
         res.redirect('/');
         return;
 
@@ -176,10 +179,20 @@ app.post('/register', async function (req, res) {
 app.get('/cart/add', async function (req, res) {
 
     let productsItem = req.query;
-    productsItem.quantity = 1;
-    req.session.cart.push({
-        productsItem
-    });
+    let check = false;
+    for (const item of req.session.cart) {
+        if(item.productsItem.proID === productsItem.proID) {
+            check = true;
+            item.productsItem.quantity += 1;
+        }
+    }
+    if (check === false) {
+        productsItem.quantity = 1;
+        req.session.cart.push({
+            productsItem
+        });
+    }
+
     console.log(req.session.cart);
     res.redirect("/");
 });
@@ -373,7 +386,7 @@ app.get('/products/byType/:tid', async function (req, res) {
     let listPages = getListPage(curPage, pageNum);
     let products = await productsModels.findProductsByTypeID(tid, limit, (curPage - 1) * limit);
 
-    console.log(products)
+    // console.log(products)
     let url = req.url.split("?")[0];
     let tName = await productsModels.getTypeName(tid);
     res.render('vwProducts/byType', {
@@ -385,38 +398,53 @@ app.get('/products/byType/:tid', async function (req, res) {
 app.get('/checkout', async function (req, res) {
     let total = 0;
     let products = req.session.cart;
-    console.log(products);
+    // console.log(products);
     for (const product of products) {
         total += parseInt(product.productsItem.price) * product.productsItem.quantity;
         product.productsItem.total =  parseInt(product.productsItem.price) * product.productsItem.quantity;
     }
-    console.log(total)
+    // console.log(total)
     res.render('vwOrders/checkout', {
         layout: 'checkout.hbs',
         products, total
     })
 })
 
-app.get('/checkout/update/:id', async function (req, res) {
+// app.post('/checkout', async function (req, res) {
+//
+//     // console.log(req.body);
+//
+//     res.render('vwOrders/checkout', {
+//         layout: 'checkout.hbs'
+//     })
+//
+// })
+
+app.post('/checkout/update', async function (req, res) {
 
     let products = req.session.cart;
 
-    console.log(req.params.id)
-    console.log(req.body)
-    res.render('vwOrders/checkout', {
-        layout: 'checkout.hbs',
-        products
-    })
+    for (let product of products) {
+        if (product.productsItem.proID === req.body.proID){
+            product.productsItem.quantity = req.body.quantity;
+        }
+    }
+
+    res.redirect('/checkout');
 })
 
-app.get('/checkout/delete/:id', async function (req, res) {
+app.get('/checkout/delete', async function (req, res) {
 
     let products = req.session.cart;
 
-    res.render('vwOrders/checkout', {
-        layout: 'checkout.hbs',
-        products
-    })
+    let index=0;
+    for (let product of products) {
+        if (product.productsItem.proID === req.query.proID)
+            products.splice(index,1);
+        index++;
+    }
+
+    res.redirect('/checkout');
 })
 
 app.post('/checkout', async function (req, res) {
@@ -429,6 +457,28 @@ app.post('/checkout', async function (req, res) {
         products
     })
 })
+
+
+app.get('/checkout/confirm', async function (req, res) {
+
+    let products = req.session.cart;
+    if (products.length === 0){
+        res.redirect('/checkout');
+    }else{
+        let date = new Date().toLocaleString();
+        let result = await orderModels.createNewOrder(req.session.account.userid,date);
+        let orderid = (result[0].orderID);
+        for (const product of req.session.cart) {
+            await orderModels.createNewOrderDetail(orderid,product.productsItem);
+        }
+
+        req.session.cart = [];
+
+        res.redirect('/checkout');
+    }
+
+})
+
 
 const port = 3000;
 app.listen(port, function () {

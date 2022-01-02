@@ -16,6 +16,10 @@ export default function (app) {
             req.session.cart = [];
         }
 
+        if (typeof (req.session.cart) == 'undefined') {
+            req.session.cart = [];
+        }
+
         res.locals.account = req.session.account;
         res.locals.login = req.session.login;
         res.locals.cart = req.session.cart;

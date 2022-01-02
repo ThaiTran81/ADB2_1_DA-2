@@ -72,16 +72,20 @@
                                             class="fa fa-angle-down"></span></a>
                                     <ul class="dropdown-menu ">
                                         {{#if login}}
+                                            {{#if (diff account.role 1) }}
+                                                <li><a href="/dashboard"><i class="fa fa-user" aria-hidden="true"></i>
+                                                    Dashboard</a></li>
+                                            {{/if}}
                                             <li><a href="/logout"><i class="fa fa-pencil-square-o"></i> Đăng xuất</a></li>
                                         {{else}}
                                             <li><a href="/login"><i class="fa fa-pencil-square-o"></i> Đăng nhập</a></li>
                                         {{/if}}
                                     </ul>
                                 </li>
-                                <li class="checkout"><a href="/checkout" class="top-link-checkout"
-                                                        title="Checkout"><span>Thanh toán</span></a></li>
-                                <li class="login"><a href="/cart"
-                                                     title="Shopping Cart"><span>Giỏ hàng</span></a></li>
+                                {{#if login}}
+                                    <li class="checkout"><a href="/checkout" class="top-link-checkout"
+                                                            title="Checkout"><span>Thanh toán</span></a></li>
+                                {{/if}}
                             </ul>
                         </div>
                     </div>
@@ -96,7 +100,7 @@
                 <div class="row">
                     <!-- Logo -->
                     <div class="navbar-logo col-md-3 col-sm-12 col-xs-12">
-                        <a href="index.html"><img src="/assets/Customer/image/demo/logos/theme_logo.png"
+                        <a href="/"><img src="/assets/Customer/image/demo/logos/theme_logo.png"
                                                   title="Your Store" alt="Your Store"/></a>
                     </div>
                     <!-- //end Logo -->
@@ -123,16 +127,20 @@
                     <!-- Secondary menu -->
                     <div class="col-md-2 col-sm-5 col-xs-12 shopping_cart pull-right">
                         <!--cart-->
-                        <div id="cart" class=" btn-group btn-shopping-cart">
-                            <a class="top_cart dropdown-toggle"
-                               href="/cart">
-                                <div class="shopcart" >
-                                    <span class="handle pull-left" href="/cart"></span>
-                                    <span class="title">My cart</span>
-                                    <p class="text-shopping-cart cart-total-full"> {{cartLength}} - item(s)</p>
-                                </div>
-                            </a>
-                        </div>
+                        {{#if login}}
+                            <div id="cart" class=" btn-group btn-shopping-cart">
+                                <a class="top_cart dropdown-toggle"
+                                   href="/checkout">
+
+                                    <div class="shopcart" >
+                                        <span class="handle pull-left" href="/checkout"></span>
+                                        <span class="title">My cart</span>
+                                        <p class="text-shopping-cart cart-total-full"> {{cartLength}} - item(s)</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {{/if}}
+
                         <!--//cart-->
                     </div>
                 </div>
