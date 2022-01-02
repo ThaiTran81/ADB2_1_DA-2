@@ -2,6 +2,31 @@ import config from "../utils/database-config.js";
 import sql from "mssql";
 
 export default {
+    async findAllProductsAvailableWithStoreID(storeid) {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('storeID', sql.Int, storeid)
+                .execute("SelectProductAvailableStoredID");
+
+
+            for (const record of result.recordset) {
+                console.log(record)
+                let recordResult = await pool.request()
+                    .input('proID', sql.Int, record.proID)
+                    .execute("SelectPriceProductByProID");
+                record.date = recordResult.recordset[0].date;
+                record.price = recordResult.recordset[0].price;
+                record.discount = recordResult.recordset[0].discount;
+            }
+
+            return result.recordset;
+
+        } catch (err) {
+            console.log(err)
+            return null;
+        }
+    },
     async findAllProduct() {
         try {
             let pool = await sql.connect(config);

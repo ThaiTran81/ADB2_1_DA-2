@@ -67,13 +67,14 @@ export default {
     },
     async updateOrderWithEmpID(entity){
         try{
+            console.log(entity);
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('orderid', sql.Int, entity.orderID)
-                .input('empid', sql.Int, entity.empid)
-                .query("UPDATE dbo.[Order] SET empID = @empid WHERE orderID = @orderid ");
+                .input('empid', sql.Int, entity.userid)
+                .execute("updateOrderWithEmpID");
 
-            console.log(result);
+            console.log(result.rowsAffected);
 
 
         }catch(err){
@@ -101,17 +102,6 @@ export default {
                 .input('orderID', sql.Int, orderID)
                 .query("SELECT sum(total) as totaldetail FROM Order_detail "
                     + "where orderID = @orderID")
-            return result.recordset;
-        }catch(err){
-            console.log(err)
-            return null;
-        }
-    },
-    async statisticAll(){
-        try{
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .execute("DoanhThuThang")
             return result.recordset;
         }catch(err){
             console.log(err)

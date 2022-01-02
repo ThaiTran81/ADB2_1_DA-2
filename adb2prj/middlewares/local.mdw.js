@@ -16,16 +16,10 @@ export default function (app) {
             req.session.cart = [];
         }
 
-        let total = 0;
-        for (const element of req.session.cart) {
-            total+= element.price;
-        }
-
         res.locals.account = req.session.account;
         res.locals.login = req.session.login;
         res.locals.cart = req.session.cart;
         res.locals.cartLength = req.session.cart.length;
-        res.locals.total = total;
 
         next();
     });

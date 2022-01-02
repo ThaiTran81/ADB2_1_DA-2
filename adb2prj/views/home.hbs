@@ -146,12 +146,8 @@
                                     </div>
 
                                     <div class="button-group text-right">
-                                        <button formaction="/cart/add?proID={{proID}}&price={{price}}&name={{pname}}" type="submit" method="get"
-                                                class="addToCart" type="button" data-toggle="tooltip"
-                                                title="Add to Cart" onclick="cart.add('42', '1');"><i
-                                                class="fa fa-shopping-cart"></i> <span
-                                                class="hidden-xs" >Add to Cart</span>
-                                        </button>
+                                        <a class="addToCart" href="/cart/add?proID={{proID}}&price={{price}}&name={{pname}}"><i
+                                            class="fa fa-shopping-cart"></i>Add to Cart</a>
                                     </div>
                                 </div><!-- right block -->
                             </div>

@@ -159,8 +159,8 @@ app.get('/cart/add', async function (req, res) {
     req.session.cart.push({
         productsItem
     });
-
-    res.redirect(req.cookies);
+    console.log(req.session.cart);
+    res.redirect("/");
 });
 
 app.get('/dashboard/:oid', async function (req, res) {
@@ -290,9 +290,14 @@ app.get('/statistic', async function (req, res) {
     })
 })
 
-app.get('/inventory', function (req, res) {
+app.get('/inventory', async function (req, res) {
+
+    let storedID = await staffModels.findStaffStoredID(req.session.account.userid);
+    let list = await productsModels.findAllProductsAvailableWithStoreID(storedID[0].storeID);
+    console.log(storedID)
     res.render('vwStaff/inventory', {
-        layout: 'staff.hbs'
+        layout: 'staff.hbs',
+        list, storedID: storedID[0].storeID
     })
 })
 
@@ -308,9 +313,6 @@ app.get('/order-processing', async function (req, res) {
 app.get('/orders/confirm', async function (req, res) {
     let userid = parseInt(req.session.account.userid);
     let orderID = parseInt(req.query.orderID);
-
-    console.log(userid);
-    console.log(orderID);
 
     await orderModels.updateOrderWithEmpID({orderID, userid});
     res.redirect('/order-processing');

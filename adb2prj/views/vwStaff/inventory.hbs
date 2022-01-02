@@ -4,50 +4,7 @@
         <div class="row">
             <div class="col-md-12 col-lg-12">
                 <div class="card table-widget">
-                    <form class="m-3">
-                        <div class="row align-items-center">
-                            <div class="col-6 h-100">
-                                <input class="form-control" type="text"
-                                       placeholder="Tra cứu theo mã đơn hàng.."
-                                       id="search" aria-label="Search">
-                            </div>
-                            <div class="col-4">
-                                <div class="form-floating">
-                                    <select class="form-select text-center p-1" id="floatingSelect"
-                                            aria-label="Floating label select">
-                                        <option selected>Chọn cửa hàng</option>
-                                        <option value="1">14 Nguyễn Văn Cừ</option>
-                                        <option value="2">15 Nguyễn Văn Cừ</option>
-                                        <option value="3">16 Nguyễn Văn Cừ</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-2">
-                                <button type="button" class="btn btn-outline-primary m-b-xs">Tìm kiếm
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <!--pagination-->
-                    <div class="text-center">
-                        <ul class="pagination d-flex justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <h3 class="text-center mt-3"> Bảng sản phẩm hiện có tại cửa hàng - #{{this.storedID}} </h3>
                     <div class="card-body">
                         <div class="table-responsive fix-head">
                             <table class="table">
@@ -60,30 +17,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>#123</td>
-                                    <td>Sô cô la</td>
-                                    <td>25</td>
-                                    <td>30. 000 vnđ</td>
-                                </tr>
-                                <tr>
-                                    <td>#123</td>
-                                    <td>Sô cô la</td>
-                                    <td>25</td>
-                                    <td>30. 000 vnđ</td>
-                                </tr>
-                                <tr>
-                                    <td>#123</td>
-                                    <td>Sô cô la</td>
-                                    <td>25</td>
-                                    <td>30. 000 vnđ</td>
-                                </tr>
-                                <tr>
-                                    <td>#123</td>
-                                    <td>Sô cô la</td>
-                                    <td>25</td>
-                                    <td>30. 000 vnđ</td>
-                                </tr>
+                                {{#each list}}
+                                    <tr>
+                                        <td>#{{proID}}</td>
+                                        <td>{{pname}}</td>
+                                        <td>{{stock}}</td>
+                                        <td>{{price}}</td>
+                                    </tr>
+                                {{/each}}
                                 </tbody>
                             </table>
                         </div>
