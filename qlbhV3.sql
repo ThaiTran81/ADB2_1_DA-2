@@ -1,4 +1,7 @@
-﻿USE qlbh
+﻿CREATE DATABASE qlbh
+GO
+
+USE qlbh
 GO
 
 IF DB_NAME() <> N'qlbh' SET NOEXEC ON
@@ -487,5 +490,26 @@ GO
 ALTER TABLE dbo.Available
   ADD CONSTRAINT FK_Available_storeID FOREIGN KEY (storeID) REFERENCES dbo.Store (storeID)
 GO
+
+
+--
+-- Create table [dbo].[Notification]
+--
+CREATE TABLE qlbh.dbo.Notification (
+  notiID INT IDENTITY
+ ,uID INT NULL
+ ,content NVARCHAR(250) NULL
+ ,timeD DATETIME NULL
+ ,seen BIT NOT NULL DEFAULT (0)
+ ,CONSTRAINT PK_Notification_notiID PRIMARY KEY CLUSTERED (notiID)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE qlbh.dbo.Notification
+ADD CONSTRAINT FK_Notification_uID FOREIGN KEY (uID) REFERENCES dbo.[USER] (uid)
+GO
+
+
 SET NOEXEC OFF
 GO
+
