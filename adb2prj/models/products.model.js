@@ -39,6 +39,31 @@ export default {
             return null;
         }
     },
+    async findAllProductsBySearch(key,limit, offset) {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('limit', sql.Int, limit)
+                .input('offset', sql.Int, offset)
+                .input('key', sql.NVarChar, key)
+                .execute("SelectProductWithSearchKey");
+
+            for (const record of result.recordset) {
+                let recordResult = await pool.request()
+                    .input('proID', sql.Int, record.proID)
+                    .execute("SelectPriceProductByProID");
+                record.date = recordResult.recordset[0].date;
+                record.price = recordResult.recordset[0].price;
+                record.discount = recordResult.recordset[0].discount;
+
+            }
+            return result.recordset;
+
+        } catch (err) {
+            console.log(err)
+            return null;
+        }
+    },
     async findAllProductsWithLimitOffset(limit, offset) {
         try {
             let pool = await sql.connect(config);
@@ -74,6 +99,19 @@ export default {
             return null;
         }
     },
+    async findQuantityBySearch(key) {
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('key', sql.NVarChar, key)
+                .execute("SelectQuantityProductBySearch");
+            return result.recordset[0];
+        } catch (err) {
+            console.log(err)
+            return null;
+        }
+    }
+    ,
     async findCurPriceProduct(proID) {
         try {
             let pool = await sql.connect(config);

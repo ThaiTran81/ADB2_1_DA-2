@@ -16,6 +16,7 @@ export default function (app) {
             req.session.cart = [];
         }
 
+
         res.locals.account = req.session.account;
         res.locals.login = req.session.login;
         res.locals.cart = req.session.cart;
@@ -30,10 +31,10 @@ export default function (app) {
         let categories = await ___models_categories_model_js.findAllCategories();
         for (let category of categories) {
             let types = await ___models_categories_model_js.findAllTypeOfCategory(category.categoryId);
-            category.type = types;
-        }
+        category.type = types;
+    }
 
-        res.locals.categories = categories;
+    res.locals.categories = categories;
         next();
     });
 

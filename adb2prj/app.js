@@ -5,6 +5,7 @@ import morgan from 'morgan';
 // import bcrypt from "bcryptjs"
 import {dirname} from "path";
 import {fileURLToPath} from "url";
+import asyncErrors from "express-async-errors";
 
 import active_middleware_session from "./middlewares/session.mdw.js";
 import active_middleware_local from "./middlewares/local.mdw.js";
@@ -56,7 +57,10 @@ app.engine('hbs', engine({
         },
         equal(varr, value, options) {
             return options.fn(varr == value);
-        }
+        },
+        diff(varr, value, options) {
+            return varr !== value;
+        },
     }
 }));
 
@@ -91,14 +95,35 @@ app.get('/', async function (req, res) {
     });
 });
 
-// app.get('/search', async function (req, res) {
-//
-//     console.log(req.body);
-//     res.render('home', {
-//         layout: 'home.hbs',
-//         products, listPages, curPage, limit
-//     });
-// });
+app.get('/search/:page', async function (req, res) {
+
+    let limit = 15
+    let curPage = parseInt(req.params.page) || 1;
+    if (curPage <= 0) {
+        res.redirect('/');
+        return;
+    }
+
+    let productNum = await productsModels.findQuantityBySearch(req.query.key);
+    // console.log(productNum);
+    let pageNum = Math.floor(productNum.soluong / limit);
+    if (productNum.soluong % limit > 0)
+        pageNum++;
+    let keySearch = req.url.split('?')[1];
+
+    let listPages = getListSearchPage(curPage, pageNum, keySearch);
+
+    let products = await productsModels.findAllProductsBySearch(req.query.key, limit, (curPage - 1) * limit);
+
+    res.render('vwProducts/search', {
+        layout: 'home.hbs',
+        products, listPages
+    });
+});
+
+app.post('/search', async function (req, res) {
+    res.redirect('/search/1?key=' + req.body.search);
+});
 
 
 app.get('/login', function (req, res) {
@@ -118,7 +143,7 @@ app.post('/login', async function (req, res) {
         req.session.login = isTrue;
         req.session.account = account;
         req.session.cart = [];
-
+        console.log(account)
         res.redirect('/');
         return;
 
@@ -155,10 +180,20 @@ app.post('/register', async function (req, res) {
 app.get('/cart/add', async function (req, res) {
 
     let productsItem = req.query;
-    productsItem.quantity = 1;
-    req.session.cart.push({
-        productsItem
-    });
+    let check = false;
+    for (const item of req.session.cart) {
+        if(item.productsItem.proID === productsItem.proID) {
+            check = true;
+            item.productsItem.quantity += 1;
+        }
+    }
+    if (check === false) {
+        productsItem.quantity = 1;
+        req.session.cart.push({
+            productsItem
+        });
+    }
+
     console.log(req.session.cart);
     res.redirect("/");
 });
@@ -352,7 +387,7 @@ app.get('/products/byType/:tid', async function (req, res) {
     let listPages = getListPage(curPage, pageNum);
     let products = await productsModels.findProductsByTypeID(tid, limit, (curPage - 1) * limit);
 
-    console.log(products)
+    // console.log(products)
     let url = req.url.split("?")[0];
     let tName = await productsModels.getTypeName(tid);
     res.render('vwProducts/byType', {
@@ -362,6 +397,58 @@ app.get('/products/byType/:tid', async function (req, res) {
 })
 
 app.get('/checkout', async function (req, res) {
+    let total = 0;
+    let products = req.session.cart;
+    // console.log(products);
+    for (const product of products) {
+        total += parseInt(product.productsItem.price) * product.productsItem.quantity;
+        product.productsItem.total =  parseInt(product.productsItem.price) * product.productsItem.quantity;
+    }
+    // console.log(total)
+    res.render('vwOrders/checkout', {
+        layout: 'checkout.hbs',
+        products, total
+    })
+})
+
+// app.post('/checkout', async function (req, res) {
+//
+//     // console.log(req.body);
+//
+//     res.render('vwOrders/checkout', {
+//         layout: 'checkout.hbs'
+//     })
+//
+// })
+
+app.post('/checkout/update', async function (req, res) {
+
+    let products = req.session.cart;
+
+    for (let product of products) {
+        if (product.productsItem.proID === req.body.proID){
+            product.productsItem.quantity = req.body.quantity;
+        }
+    }
+
+    res.redirect('/checkout');
+})
+
+app.get('/checkout/delete', async function (req, res) {
+
+    let products = req.session.cart;
+
+    let index=0;
+    for (let product of products) {
+        if (product.productsItem.proID === req.query.proID)
+            products.splice(index,1);
+        index++;
+    }
+
+    res.redirect('/checkout');
+})
+
+app.post('/checkout', async function (req, res) {
 
     let products = req.session.cart;
     console.log(products);
@@ -370,6 +457,27 @@ app.get('/checkout', async function (req, res) {
         layout: 'checkout.hbs',
         products
     })
+})
+
+
+app.get('/checkout/confirm', async function (req, res) {
+
+    let products = req.session.cart;
+    if (products.length === 0){
+        res.redirect('/checkout');
+    }else{
+        let date = new Date().toLocaleString();
+        let result = await orderModels.createNewOrder(req.session.account.userid,date);
+        let orderid = (result[0].orderID);
+        for (const product of req.session.cart) {
+            await orderModels.createNewOrderDetail(orderid,product.productsItem);
+        }
+
+        req.session.cart = [];
+
+        res.redirect('/checkout');
+    }
+
 })
 
 
@@ -420,3 +528,63 @@ function getListPage(curPage, pageNum) {
     }
     return listPages;
 }
+
+
+function getListSearchPage(curPage, pageNum,key) {
+
+    let listPages = [];
+    let i = curPage - 2;
+    let endPage = curPage + 2;
+    if (i <= 0) {
+        i = 1;
+        endPage += 2;
+    } else if (i >= 3) {
+        listPages.push({
+            value: 1, isCur: false, url: '/search/' + i + '?' + key
+        });
+        listPages.push({
+            value: "...", isCur: false, url: '/search/' + i + '?' + key
+        })
+    } else if (i == 2) {
+        listPages.push({
+            value: 1, isCur: false, url: '/search/' + i + '?' + key
+        });
+    }
+    for (i; i < endPage + 1; i++) {
+        if (i > pageNum)
+            break;
+        listPages.push({
+            value: i, isCur: i === curPage, url: '/search/' + i + '?' + key
+        })
+    }
+    if (i === pageNum) {
+        listPages.push({
+            value: i, isCur: false, url: '/search/' + i + '?' + key
+        });
+    }
+    if (i <= pageNum - 1) {
+        listPages.push({
+            value: "...", isCur: false, url: '/search/' + i + '?' + key
+        });
+        listPages.push({
+            value: pageNum, isCur: false, url: '/search/' + i + '?' + key
+        });
+    }
+    return listPages;
+}
+
+app.get('/err', function(req,res){
+    throw new Error('Error!');
+})
+
+app.use(function (req,res, next){
+    res.render('404', {
+        layout:false
+    })
+})
+
+app.use(function (err, req,res, next){
+    res.render('500', {
+        layout:false
+    })
+})

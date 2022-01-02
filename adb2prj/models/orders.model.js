@@ -107,6 +107,50 @@ export default {
             console.log(err)
             return null;
         }
+    },
+    async createNewOrder(orderID, date){
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('date', sql.DateTime, date)
+                .input('uid', sql.Int, orderID)
+                .execute("InsertOrder");
+
+            return result.recordset;
+
+        }catch(err){
+            console.log(err)
+            return null;
+        }
+    },
+    async createNewOrderDetail(orderid,entity){
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('orderid', sql.Int,orderid )
+                .input('proID', sql.Int, parseInt(entity.proID))
+                .input('quantity', sql.Int, entity.quantity)
+                .input('price', sql.Float, entity.price)
+                .input('discount', sql.Float, 0)
+                .execute("InsertOrderDetail");
+
+            return result.recordset;
+
+        }catch(err){
+            console.log(err)
+            return null;
+        }
+    },
+    async statisticAll(){
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .execute("DoanhThuThang")
+            return result.recordset;
+        }catch(err){
+            console.log(err)
+            return null;
+        }
     }
 };
 
