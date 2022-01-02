@@ -5,6 +5,7 @@ import morgan from 'morgan';
 // import bcrypt from "bcryptjs"
 import {dirname} from "path";
 import {fileURLToPath} from "url";
+import asyncErrors from "express-async-errors";
 
 import active_middleware_session from "./middlewares/session.mdw.js";
 import active_middleware_local from "./middlewares/local.mdw.js";
@@ -571,3 +572,19 @@ function getListSearchPage(curPage, pageNum,key) {
     }
     return listPages;
 }
+
+app.get('/err', function(req,res){
+    throw new Error('Error!');
+})
+
+app.use(function (req,res, next){
+    res.render('404', {
+        layout:false
+    })
+})
+
+app.use(function (err, req,res, next){
+    res.render('500', {
+        layout:false
+    })
+})
