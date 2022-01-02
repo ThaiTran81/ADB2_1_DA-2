@@ -1,5 +1,5 @@
 ﻿use qlbh
-  go
+ go
 --drop trigger trg_import_Total
 Create trigger trg_import_Total --trigger tính tổng tiền của bảng import_detailed = quantity*price
 on Import_detailed
@@ -31,7 +31,7 @@ BEGIN
    update [Order]
    SET [Order].total = (SELECT SUM(Order_detail.total)
               FROM Order_detail
-              WHERE Order_detail.orderID = i.orderID)
+              WHERE Order_detail.orderID = i.orderID) - [Order].discount
    FROM Inserted i
    JOIN [Order]
     ON [Order].orderID = i.orderID
