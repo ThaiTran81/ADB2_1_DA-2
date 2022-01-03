@@ -6,7 +6,7 @@
     <ProviderVersion>5.8.127.0</ProviderVersion>
     <GeneratorVersion>6.1.1225.0</GeneratorVersion>
     <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
-    <ConnectionString>Data Source=TRHUTRONG;Encrypt=False;Initial Catalog=QLHD;Integrated Security=True;User ID=TRHUTRONG\ADMIN</ConnectionString>
+    <ConnectionString>Data Source=DESKTOP-I28FTUK\SQLEXPRESS;Encrypt=False;Integrated Security=True;User ID=DESKTOP-I28FTUK\ThaiTran</ConnectionString>
     <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
     <DatabaseName>qlbh</DatabaseName>
     <AllowNulls>false</AllowNulls>
@@ -41,23 +41,26 @@
       <Columns>
         <Column Name="categoryId">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>7</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>CID(${counter([0-9]{5})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>11</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="categoryName">
           <Checked>true</Checked>
@@ -81,6 +84,65 @@
         </Column>
       </Columns>
     </Table>
+    <Table Name="dbo.ROLES">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>4</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="rID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>26</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="rName">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>26</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>($"JobTitles.csv[0]")</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>Department</GeneratorName>
+          <GeneratorDescription>Marketing, Finance, Research and Development, Manufacturing, Sales, Customer Support, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>20</Length>
+        </Column>
+      </Columns>
+    </Table>
     <Table Name="dbo.Supplier">
       <Checked>true</Checked>
       <Settings>
@@ -97,23 +159,26 @@
       <Columns>
         <Column Name="supID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>20</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>SUP(${counter([0-9]{5})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>32</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="supName">
           <Checked>true</Checked>
@@ -124,15 +189,15 @@
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>20</SeedValue>
+            <SeedValue>32</SeedValue>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>((Com|Speak|Sub|Con|Mic|Tweet|Read|Tab|Cab|Tab|Bi|Te|Mono|Print|Pro|Mon|Arm|Sup|Cart|Char|Re|Clean|Re|Trans|An|Stereo|Play|Com|Amp)(put|hold|ceiv|woof|mut|top|ta|le|cul|cess|tell|ject|find|pick|band|cord|plott|tin|cycl|tect|ni|cord|lict|tin|lifi)(|ic|im|in|up|ad|er||on|ep|ed|let|ga|aqu|ef|edg|op|oll|omm|ew|fi|an|ex|pl)?(er|or|er|on|phone|ra|entor|ator|ar|er|scope|or|ry|ridge|let))</Expression>
+            <Expression>(((American|Australian|Canadian|Pacific|Federal|Global|Domestic|First|General|(West((ern)?|( Coast)))|North|East|South|Flexible|City|WorldWide|Home|Advanced|Beyond|Future|National|International|(Uni(on|ted))|Special|Professional|Smart|Creative) ))(Systems|((2|3|4|5)G )Wireless|(([A-Z]-)?Mobile)|Telecom(munications)?|(([2-7])D )Electronic|Entertainment|(Financial( Experts)?)|Services|Devices|(Logi(cs|stic))|(High-)?Technologies|(Renewable|Natural Gas|Fossil Fuel|Wave|Thermal|Solar|Wind|Green|Nuclear) (Energy|Resources|Power)|((Oil|Electricity)( &amp; Gas)?)|Investment|Insurance|Broadcasting|Trust|Tire &amp; Rubber|Engineering|Protection|Software|Cars( Battery)?|Equipment|Semiconductor|Business|Mining|Heating|Partners|Data|Computers|Security|Petroleum|Instruments|Laboratories|(Lasers &amp; )?Optics|Travel|(Space )?(Research|Explore)|Management|Consulting|Media|Telemetrics|Development|Materials|(F|G)oods|Transport(ation)?|Industry|Health( Care)?|Automotive|Products|Delivery) (((Inc|Co(rp)?).)|(Group|Corporation))</Expression>
           </GeneratorOptions>
           <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>Product Name</GeneratorName>
-          <GeneratorDescription>Repickentor, Playtinon, Cleantinedridge, Tweetnier, Cartholdoper, ... </GeneratorDescription>
-          <GeneratorCategory>Product</GeneratorCategory>
+          <GeneratorName>Company</GeneratorName>
+          <GeneratorDescription>First Tire &amp; Rubber Inc., Smart Systems Corp., Flexible Insurance Group, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
           <Length>50</Length>
         </Column>
         <Column Name="addr">
@@ -148,7 +213,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\street.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -158,6 +223,130 @@
           <GeneratorDescription>Sydney, Alice Springs, Hamilton, Victoria Point, ...</GeneratorDescription>
           <GeneratorCategory>Location</GeneratorCategory>
           <Length>50</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.sysdiagrams">
+      <Checked>false</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="diagram_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>33</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>33</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")|($"LastNames.txt"))(\D{1,3}))|((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")|($"LastNames.txt"))((19[5-9]\d)|(20[0-2]\d)))</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>NickName</GeneratorName>
+          <GeneratorDescription>Jodi1982, Nancey777, Terrance28, Erich95, Cindi1, Salena92, Pasquale2015, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>128</Length>
+        </Column>
+        <Column Name="principal_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>34</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>2147483647</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="version">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>33</SeedValue>
+            <MinValue>-2147483648</MinValue>
+            <MaxValue>2147483647</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="definition">
+          <Checked>false</Checked>
+          <DataType>varbinary(max)</DataType>
+          <GeneratorOptions xsi:type="VarbinaryMaxGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>33</SeedValue>
+            <MinLength>1</MinLength>
+            <MaxLength>200</MaxLength>
+            <MaxAllowedLength>65536</MaxAllowedLength>
+          </GeneratorOptions>
+          <GeneratorType>SqlVarbinaryMaxGenerator</GeneratorType>
+          <GeneratorName>binary</GeneratorName>
+          <GeneratorDescription>fill with binary values</GeneratorDescription>
+          <Length>-1</Length>
         </Column>
       </Columns>
     </Table>
@@ -177,23 +366,26 @@
       <Columns>
         <Column Name="uid">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>3</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>KH(${counter([0-9]{5})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="fullname">
           <Checked>true</Checked>
@@ -208,7 +400,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\Any gender.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\Any gender.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -292,7 +484,7 @@
             <IsLoop>true</IsLoop>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <FileName>C:\Users\ADMIN\OneDrive\Documents\GitHub\CSDL_NC1\Data gen\street.txt</FileName>
+            <FileName>E:\respo\repos\CSDL_NC1\Data gen\street.txt</FileName>
             <TrimLeft>false</TrimLeft>
             <TrimRight>false</TrimRight>
             <CodePage>65001</CodePage>
@@ -313,7 +505,7 @@
             <NullProportion>10</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
             <SeedValue>4</SeedValue>
-            <Unique>false</Unique>
+            <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Expression>\d{3}\-\d{4}</Expression>
           </GeneratorOptions>
@@ -321,11 +513,11 @@
           <GeneratorName>Phone Number (local)</GeneratorName>
           <GeneratorDescription>352-5422, 114-6587, 025-9635, 267-4128, 725-5250, ...</GeneratorDescription>
           <GeneratorCategory>Personal</GeneratorCategory>
-          <Length>10</Length>
+          <Length>15</Length>
         </Column>
         <Column Name="email">
           <Checked>true</Checked>
-          <DataType>nvarchar</DataType>
+          <DataType>varchar</DataType>
           <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
             <AllowEmptyStrings>false</AllowEmptyStrings>
             <EmptyStringProportion>10</EmptyStringProportion>
@@ -335,13 +527,50 @@
             <SeedValue>4</SeedValue>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>(((((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt"))[_.]?)?($"LastNames.txt"))|(($"LastNames.txt")\C?)|(((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt"))[_.]?(\C[_.]?)?)?($"LastNames.txt")))(\D{,3})?|\c{4,8}(\d{1,4}|[_.]\c{4,10}))@(gmail$"7"|hcmus$"3").com</Expression>
+            <Expression>(((((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt"))[_.]?)?($"LastNames.txt"))|(($"LastNames.txt")\C?)|(((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt"))[_.]?(\C[_.]?)?)?($"LastNames.txt")))(\D{,3})?|\c{4,8}(\d{1,4}|[_.]\c{4,10}))@(example$"7"|nowhere$"3").com</Expression>
           </GeneratorOptions>
           <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
           <GeneratorName>Email</GeneratorName>
           <GeneratorDescription>Danica.Foley@example.com, fstu@nowhere.com, CurtK_Burton@example.com, LaroseM696@nowhere.com, ...</GeneratorDescription>
           <GeneratorCategory>Personal</GeneratorCategory>
           <Length>50</Length>
+        </Column>
+        <Column Name="datefounded">
+          <Checked>true</Checked>
+          <DataType>datetime</DataType>
+          <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>4</SeedValue>
+            <SequentialValueTicks>864000000000</SequentialValueTicks>
+            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
+            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
+            <DateTimeRange>MinMaxDate</DateTimeRange>
+            <UseOffsetDetails>false</UseOffsetDetails>
+            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <MinDate>2010-01-01T00:00:00</MinDate>
+            <MaxDate>2022-01-03T00:00:00+07:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
+            <IsRandomizeTime>true</IsRandomizeTime>
+            <MinFraction>0</MinFraction>
+            <MaxFraction>99</MaxFraction>
+            <IsRandomizeFraction>true</IsRandomizeFraction>
+            <Scale>2</Scale>
+            <Precision>0</Precision>
+            <MaxTime>863990000000</MaxTime>
+            <MinTime>10000000</MinTime>
+          </GeneratorOptions>
+          <GeneratorType>SqlDateTimeGenerator</GeneratorType>
+          <GeneratorName>datetime</GeneratorName>
+          <GeneratorDescription>fill with date and time with fractional seconds values</GeneratorDescription>
+          <Scale>3</Scale>
+          <Length>8</Length>
+          <Precision>23</Precision>
         </Column>
         <Column Name="score">
           <Checked>true</Checked>
@@ -369,6 +598,234 @@
         </Column>
       </Columns>
     </Table>
+    <Table Name="dbo.ProductType">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>15</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="tId">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>23</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="tName">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>23</SeedValue>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>Accessories|Audible|Automotive|Books|Beauty|Baby|Clothing|Computers|Crafts|Electronics|Food|Furniture|Games|Garden|Gifts|Health|Home|Jewelry|Movies|Music|Patio|Pets|Pharmacy|Office|Outdoors|Shoes|Sports|Tools|Toys</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>Product Category</GeneratorName>
+          <GeneratorDescription>Movies, Pharmacy, Garden, Books, Clothing, Furniture, ...</GeneratorDescription>
+          <GeneratorCategory>Product</GeneratorCategory>
+          <Length>50</Length>
+        </Column>
+        <Column Name="category">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>23</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.staff">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="uID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>29</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="storeID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>30</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.Store">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="storeID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>31</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="storeAddress">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>31</SeedValue>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>(([1-9]\d{1,2})|([1-3]\d{3})) (((New|Old|Hidden|West|South|East|North|White|Red|E|(S)?W|NW|S(E)?|N(E)?) )?((((Ski|Chapel|Hunting|Fox|Rose|Riddle|Rock|Prospect|Sharp) Hill)|Front|Hope|Mount|Church|Social|Riverside|Highland|(Wood(land|bridge|hurst|side|row|fort|cock))|((Deep|Iron|Rush|Edge|Park|Hazel|Bur|Glen|Rock|Quail|Stone|Flint|Button|Beach|Ash|Brent)wood)|Lake|(Cedar|Pine) Tree|Oak|((Water|Meadow|Farm|River|Bay)view)|Town|Market|Mountain|Monument))|((1st|2nd|3rd|[4-9]\d?th))) (St(reet)?|Ave(nue)?|Dr(ive)?|R(oa)?d|Ct|C(our)?t|Ln|Lane|Blvd|Cir(cle)?|Hwy|Highway|Loop|Way|Pkwy|Parkway), ((((1st|2nd|3rd|[4-9]\d?th) (Floor|FL))|((Appartment|APT) [1-9]\d{0,2})|((Suite|STE) [1-9]\d{0,3})|(((Nipper|Victor Executive|Diamond|Standard|Keith|Superior|Macy's|Enquirer|Duke Energy|Bartlett|Plaza|Equitable|MidAmerican|Penobscot|Guardian|Fisher|Buhl|Comcast|Calyon|First Security|257 Towers|Kearns|Judge) (Building|Bldg)))), )?($"USStateCodes.csv[2]"), (($"USStateCodes.csv[0]")|($"USStateCodes.csv[1]")), \d{5}</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>US Address Full</GeneratorName>
+          <GeneratorDescription>520 46th St, Sacramento, CA, 10265; 122 Beachwood Drive, Suite 17, Hartford, Connecticut, 31824; ...</GeneratorDescription>
+          <GeneratorCategory>Location</GeneratorCategory>
+          <Length>100</Length>
+        </Column>
+        <Column Name="manager">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="CustomForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>31</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ReferenceTableName>dbo.staff</ReferenceTableName>
+            <ReferenceColumnNames>
+              <string>uID</string>
+            </ReferenceColumnNames>
+          </GeneratorOptions>
+          <GeneratorType>CustomForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (manually assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
     <Table Name="dbo.Import">
       <Checked>true</Checked>
       <Settings>
@@ -385,34 +842,37 @@
       <Columns>
         <Column Name="imID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>8</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>ImID(${counter([0-9]{5})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="supID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>8</SeedValue>
+            <SeedValue>12</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -423,7 +883,8 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="imDate">
           <Checked>true</Checked>
@@ -455,26 +916,50 @@
         </Column>
         <Column Name="total">
           <Checked>true</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>8</SeedValue>
+            <Increment xsi:type="xsd:double">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
             <MinValue>0</MinValue>
-            <MaxValue>9999999</MaxValue>
+            <MaxValue>9999999999</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
           </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>money</GeneratorName>
-          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
-          <Scale>4</Scale>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>float</GeneratorName>
+          <GeneratorDescription>fill with floating point numeric values</GeneratorDescription>
           <Length>8</Length>
-          <Precision>19</Precision>
+          <Precision>53</Precision>
+        </Column>
+        <Column Name="storeID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>13</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
       </Columns>
     </Table>
@@ -494,27 +979,30 @@
       <Columns>
         <Column Name="orderID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>1</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>DH(${counter([0-9]{6})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="uID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
@@ -532,7 +1020,8 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="discount">
           <Checked>true</Checked>
@@ -560,8 +1049,8 @@
         </Column>
         <Column Name="dateBill">
           <Checked>true</Checked>
-          <DataType>date</DataType>
-          <GeneratorOptions xsi:type="DateGeneratorOptions">
+          <DataType>datetime</DataType>
+          <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
@@ -576,58 +1065,53 @@
             <UseOffsetDetails>false</UseOffsetDetails>
             <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
             <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
-            <MinDate>2020-01-01T00:00:00</MinDate>
-            <MaxDate>2021-12-10T00:00:00+07:00</MaxDate>
+            <MinDate>1970-01-01T00:00:00</MinDate>
+            <MaxDate>2022-01-03T00:00:00+07:00</MaxDate>
             <IsRandomizeDate>true</IsRandomizeDate>
+            <IsRandomizeTime>true</IsRandomizeTime>
+            <MinFraction>0</MinFraction>
+            <MaxFraction>99</MaxFraction>
+            <IsRandomizeFraction>true</IsRandomizeFraction>
+            <Scale>2</Scale>
+            <Precision>0</Precision>
+            <MaxTime>863990000000</MaxTime>
+            <MinTime>10000000</MinTime>
           </GeneratorOptions>
-          <GeneratorType>SqlDateGenerator</GeneratorType>
-          <GeneratorName>date</GeneratorName>
-          <GeneratorDescription>fill with date values</GeneratorDescription>
-          <Length>3</Length>
-          <Precision>10</Precision>
+          <GeneratorType>SqlDateTimeGenerator</GeneratorType>
+          <GeneratorName>datetime</GeneratorName>
+          <GeneratorDescription>fill with date and time with fractional seconds values</GeneratorDescription>
+          <Scale>3</Scale>
+          <Length>8</Length>
+          <Precision>23</Precision>
         </Column>
         <Column Name="empID">
-          <Checked>false</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
             <SeedValue>2</SeedValue>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>\d{5}</Expression>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (random)</GeneratorName>
-          <GeneratorDescription>54470, 16912, 43814, 06728, 36017, 82433, 95664, ...</GeneratorDescription>
-          <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="total">
           <Checked>true</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>1</SeedValue>
-            <MinValue>0</MinValue>
-            <MaxValue>9999999</MaxValue>
-            <UseDefault>false</UseDefault>
-            <DefaultValue />
-          </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>money</GeneratorName>
-          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
-          <Scale>4</Scale>
+          <DataType>float</DataType>
           <Length>8</Length>
-          <Precision>19</Precision>
+          <Precision>53</Precision>
         </Column>
         <Column Name="isPay">
           <Checked>true</Checked>
@@ -648,72 +1132,16 @@
           <Length>1</Length>
           <Precision>1</Precision>
         </Column>
-      </Columns>
-    </Table>
-    <Table Name="dbo.ProductType">
-      <Checked>true</Checked>
-      <Settings>
-        <Truncate>true</Truncate>
-        <RowsToGenerate>0</RowsToGenerate>
-        <PopulationDetails>
-          <PopulationType>RowsCount</PopulationType>
-          <RowsCount>15</RowsCount>
-          <LookupProportion>30</LookupProportion>
-          <ProportionOfExistingData>10</ProportionOfExistingData>
-          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
-        </PopulationDetails>
-      </Settings>
-      <Columns>
-        <Column Name="tId">
+        <Column Name="storeID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>16</SeedValue>
-            <Unique>true</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>TID(${counter([0-9]{5})})</Expression>
-          </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
-          <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
-        </Column>
-        <Column Name="tName">
-          <Checked>true</Checked>
-          <DataType>nvarchar</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>16</SeedValue>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>((Com|Speak|Sub|Con|Mic|Tweet|Read|Tab|Cab|Tab|Bi|Te|Mono|Print|Pro|Mon|Arm|Sup|Cart|Char|Re|Clean|Re|Trans|An|Stereo|Play|Com|Amp)(put|hold|ceiv|woof|mut|top|ta|le|cul|cess|tell|ject|find|pick|band|cord|plott|tin|cycl|tect|ni|cord|lict|tin|lifi)(|ic|im|in|up|ad|er||on|ep|ed|let|ga|aqu|ef|edg|op|oll|omm|ew|fi|an|ex|pl)?(er|or|er|on|phone|ra|entor|ator|ar|er|scope|or|ry|ridge|let))</Expression>
-          </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>Product Name</GeneratorName>
-          <GeneratorDescription>Repickentor, Playtinon, Cleantinedridge, Tweetnier, Cartholdoper, ... </GeneratorDescription>
-          <GeneratorCategory>Product</GeneratorCategory>
-          <Length>50</Length>
-        </Column>
-        <Column Name="category">
-          <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>16</SeedValue>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>3</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -724,7 +1152,13 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="address">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>50</Length>
         </Column>
       </Columns>
     </Table>
@@ -744,23 +1178,26 @@
       <Columns>
         <Column Name="proID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
-          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
-            <AllowEmptyStrings>false</AllowEmptyStrings>
-            <EmptyStringProportion>10</EmptyStringProportion>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>15</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Expression>PID(${counter([0-9]{5})})</Expression>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>22</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
-          <GeneratorName>ID (numeric sequential)</GeneratorName>
-          <GeneratorDescription>00000, 00001, 00002, ..., 99997, 99998, 99999</GeneratorDescription>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
           <GeneratorCategory>Business</GeneratorCategory>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="pname">
           <Checked>true</Checked>
@@ -837,38 +1274,16 @@
           <GeneratorCategory>Product</GeneratorCategory>
           <Length>100</Length>
         </Column>
-        <Column Name="stocks">
-          <Checked>true</Checked>
-          <DataType>int</DataType>
-          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:int">1</Increment>
-            <ValueDistributionMode>Random</ValueDistributionMode>
-            <SeedValue>15</SeedValue>
-            <MinValue>0</MinValue>
-            <MaxValue>1000</MaxValue>
-            <UseDefault>false</UseDefault>
-            <DefaultValue />
-          </GeneratorOptions>
-          <GeneratorType>SqlIntegerGenerator</GeneratorType>
-          <GeneratorName>int</GeneratorName>
-          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
-          <Length>4</Length>
-          <Precision>10</Precision>
-        </Column>
         <Column Name="ptype">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>15</SeedValue>
+            <SeedValue>22</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -879,7 +1294,32 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="price">
+          <Checked>true</Checked>
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:double">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>22</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>100000000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
+          </GeneratorOptions>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>float</GeneratorName>
+          <GeneratorDescription>fill with floating point numeric values</GeneratorDescription>
+          <Length>8</Length>
+          <Precision>53</Precision>
         </Column>
       </Columns>
     </Table>
@@ -899,14 +1339,14 @@
       <Columns>
         <Column Name="username">
           <Checked>true</Checked>
-          <DataType>nvarchar</DataType>
+          <DataType>varchar</DataType>
           <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
             <AllowEmptyStrings>false</AllowEmptyStrings>
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
+            <SeedValue>5</SeedValue>
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Expression>((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")|($"LastNames.txt"))(\D{1,3}))|((($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")|($"LastNames.txt"))((19[5-9]\d)|(20[0-2]\d)))</Expression>
@@ -915,18 +1355,18 @@
           <GeneratorName>NickName</GeneratorName>
           <GeneratorDescription>Jodi1982, Nancey777, Terrance28, Erich95, Cindi1, Salena92, Pasquale2015, ...</GeneratorDescription>
           <GeneratorCategory>Personal</GeneratorCategory>
-          <Length>50</Length>
+          <Length>30</Length>
         </Column>
         <Column Name="password">
           <Checked>true</Checked>
-          <DataType>nvarchar</DataType>
+          <DataType>varchar</DataType>
           <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
             <AllowEmptyStrings>false</AllowEmptyStrings>
             <EmptyStringProportion>10</EmptyStringProportion>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>5</SeedValue>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Expression>[0-9A-Z]+</Expression>
@@ -939,72 +1379,13 @@
         <Column Name="role">
           <Checked>true</Checked>
           <DataType>int</DataType>
-          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:int">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
-            <MinValue>1</MinValue>
-            <MaxValue>1</MaxValue>
-            <UseDefault>false</UseDefault>
-            <DefaultValue />
-          </GeneratorOptions>
-          <GeneratorType>SqlIntegerGenerator</GeneratorType>
-          <GeneratorName>int</GeneratorName>
-          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
-          <Length>4</Length>
-          <Precision>10</Precision>
-        </Column>
-        <Column Name="datefounded">
-          <Checked>true</Checked>
-          <DataType>datetime</DataType>
-          <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <UseDefault>false</UseDefault>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
-            <SequentialValueTicks>864000000000</SequentialValueTicks>
-            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
-            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
-            <DateTimeRange>MinMaxDate</DateTimeRange>
-            <UseOffsetDetails>false</UseOffsetDetails>
-            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
-            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
-            <MinDate>2020-01-01T00:00:00</MinDate>
-            <MaxDate>2021-12-10T00:00:00+07:00</MaxDate>
-            <IsRandomizeDate>true</IsRandomizeDate>
-            <IsRandomizeTime>true</IsRandomizeTime>
-            <MinFraction>0</MinFraction>
-            <MaxFraction>99</MaxFraction>
-            <IsRandomizeFraction>false</IsRandomizeFraction>
-            <Scale>2</Scale>
-            <Precision>0</Precision>
-            <MaxTime>863990000000</MaxTime>
-            <MinTime>10000000</MinTime>
-          </GeneratorOptions>
-          <GeneratorType>SqlDateTimeGenerator</GeneratorType>
-          <GeneratorName>datetime</GeneratorName>
-          <GeneratorDescription>fill with date and time with fractional seconds values</GeneratorDescription>
-          <Scale>3</Scale>
-          <Length>8</Length>
-          <Precision>23</Precision>
-        </Column>
-        <Column Name="userid">
-          <Checked>true</Checked>
-          <DataType>char</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
-            <ValueDistributionMode>Sequential</ValueDistributionMode>
-            <SeedValue>4</SeedValue>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>5</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1015,12 +1396,36 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="userid">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>6</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
       </Columns>
     </Table>
     <Table Name="dbo.Attendance">
-      <Checked>false</Checked>
+      <Checked>true</Checked>
       <Settings>
         <Truncate>true</Truncate>
         <RowsToGenerate>0</RowsToGenerate>
@@ -1034,15 +1439,15 @@
       </Settings>
       <Columns>
         <Column Name="uid">
-          <Checked>false</Checked>
-          <DataType>char</DataType>
+          <Checked>true</Checked>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
-            <ValueDistributionMode>Random</ValueDistributionMode>
-            <SeedValue>5</SeedValue>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>7</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1053,10 +1458,11 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="timeStart">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>datetime</DataType>
           <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1070,10 +1476,11 @@
             <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
             <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
             <DateTimeRange>MinMaxDate</DateTimeRange>
+            <SelectedColumn>timeEnd</SelectedColumn>
             <UseOffsetDetails>false</UseOffsetDetails>
             <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
             <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
-            <MinDate>2020-01-10T00:00:00+07:00</MinDate>
+            <MinDate>2015-01-01T00:00:00+07:00</MinDate>
             <MaxDate>2021-12-10T00:00:00+07:00</MaxDate>
             <IsRandomizeDate>true</IsRandomizeDate>
             <IsRandomizeTime>true</IsRandomizeTime>
@@ -1093,7 +1500,7 @@
           <Precision>23</Precision>
         </Column>
         <Column Name="timeEnd">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>datetime</DataType>
           <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1106,10 +1513,11 @@
             <SequentialValueTicks>864000000000</SequentialValueTicks>
             <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
             <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
-            <DateTimeRange>MinMaxDate</DateTimeRange>
-            <UseOffsetDetails>false</UseOffsetDetails>
+            <DateTimeRange>OffsetFromColumn</DateTimeRange>
+            <SelectedColumn>timeStart</SelectedColumn>
+            <UseOffsetDetails>true</UseOffsetDetails>
             <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
-            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <OffsetFromColumnMaxDays>1</OffsetFromColumnMaxDays>
             <MinDate>2020-01-10T00:00:00</MinDate>
             <MaxDate>2021-12-10T00:00:00+07:00</MaxDate>
             <IsRandomizeDate>true</IsRandomizeDate>
@@ -1130,7 +1538,7 @@
           <Precision>23</Precision>
         </Column>
         <Column Name="status">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>bit</DataType>
           <GeneratorOptions xsi:type="BitGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1150,6 +1558,90 @@
         </Column>
       </Columns>
     </Table>
+    <Table Name="dbo.Available">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="proID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>9</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="storeID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>10</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="stock">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>9</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>100000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue>(0)</DefaultValue>
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>fill with 32-bit signed integer values</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
     <Table Name="dbo.Import_detailed">
       <Checked>true</Checked>
       <Settings>
@@ -1166,14 +1658,14 @@
       <Columns>
         <Column Name="ImID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>9</SeedValue>
+            <SeedValue>14</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1184,18 +1676,19 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="proID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>10</SeedValue>
+            <SeedValue>15</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1206,7 +1699,8 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="Quantity">
           <Checked>true</Checked>
@@ -1233,55 +1727,210 @@
         </Column>
         <Column Name="price">
           <Checked>true</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
+            <Increment xsi:type="xsd:double">1</Increment>
             <ValueDistributionMode>Random</ValueDistributionMode>
-            <SeedValue>9</SeedValue>
-            <MinValue>99</MinValue>
-            <MaxValue>1999</MaxValue>
+            <SeedValue>14</SeedValue>
+            <MinValue>19999</MinValue>
+            <MaxValue>119999</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
           </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>Product Cost</GeneratorName>
-          <GeneratorDescription>379,0069; 1942; 158,0113; 261; ...</GeneratorDescription>
-          <GeneratorCategory>Product</GeneratorCategory>
-          <Scale>4</Scale>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>US Annual Salary</GeneratorName>
+          <GeneratorDescription>23500,0055; 44600; 35800,0117; 110000; ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
           <Length>8</Length>
-          <Precision>19</Precision>
+          <Precision>53</Precision>
         </Column>
         <Column Name="total">
           <Checked>true</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
+            <Increment xsi:type="xsd:double">1</Increment>
             <ValueDistributionMode>Random</ValueDistributionMode>
-            <SeedValue>9</SeedValue>
-            <MinValue>10000</MinValue>
-            <MaxValue>200000</MaxValue>
+            <SeedValue>15</SeedValue>
+            <MinValue>50000</MinValue>
+            <MaxValue>900000000</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
+          </GeneratorOptions>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>float</GeneratorName>
+          <GeneratorDescription>fill with floating point numeric values</GeneratorDescription>
+          <Length>8</Length>
+          <Precision>53</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.Notification">
+      <Checked>true</Checked>
+      <Settings>
+        <Truncate>true</Truncate>
+        <RowsToGenerate>0</RowsToGenerate>
+        <PopulationDetails>
+          <PopulationType>RowsCount</PopulationType>
+          <RowsCount>1000</RowsCount>
+          <LookupProportion>30</LookupProportion>
+          <ProportionOfExistingData>10</ProportionOfExistingData>
+          <TimeTicksToPopulate>100000000</TimeTicksToPopulate>
+        </PopulationDetails>
+      </Settings>
+      <Columns>
+        <Column Name="notiID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9999999</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
           </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>money</GeneratorName>
-          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
-          <Scale>4</Scale>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="uID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
+          <GeneratorDescription>references a column from parent table</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="content">
+          <Checked>true</Checked>
+          <DataType>nvarchar</DataType>
+          <GeneratorOptions xsi:type="SqlLoremIpsumGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>0</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <MinLength>1</MinLength>
+            <MaxLength>100</MaxLength>
+            <MaxAllowedLength>250</MaxAllowedLength>
+            <MinWordsInSentence>3</MinWordsInSentence>
+            <MaxWordsInSentence>7</MaxWordsInSentence>
+            <MinSentences>1</MinSentences>
+            <MaxSentences>10</MaxSentences>
+            <MinParagraphs>1</MinParagraphs>
+            <MaxParagraphs>1</MaxParagraphs>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <PunctuationSigns>,.!?...;</PunctuationSigns>
+            <StartParagraphWithIndent>false</StartParagraphWithIndent>
+            <AddParagraphTags>false</AddParagraphTags>
+            <AddItalicTags>false</AddItalicTags>
+            <AddBoldTags>false</AddBoldTags>
+            <AddSingleLineBreakTags>false</AddSingleLineBreakTags>
+            <AddNewLines>false</AddNewLines>
+          </GeneratorOptions>
+          <GeneratorType>SqlLoremIpsumGenerator</GeneratorType>
+          <GeneratorName>Product Description</GeneratorName>
+          <GeneratorDescription>Sunt id voluptatem eveniet ipsum minus hic. Repellenadus at facilis. Aut facilis esse qui, eligendi et quae! Et qui ullam., ...</GeneratorDescription>
+          <GeneratorCategory>Product</GeneratorCategory>
+          <Length>250</Length>
+        </Column>
+        <Column Name="timeD">
+          <Checked>true</Checked>
+          <DataType>datetime</DataType>
+          <GeneratorOptions xsi:type="DateTimeGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <SequentialValueTicks>864000000000</SequentialValueTicks>
+            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
+            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
+            <DateTimeRange>MinMaxDate</DateTimeRange>
+            <UseOffsetDetails>false</UseOffsetDetails>
+            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <MinDate>2010-01-01T00:00:00</MinDate>
+            <MaxDate>2022-01-03T00:00:00+07:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
+            <IsRandomizeTime>true</IsRandomizeTime>
+            <MinFraction>0</MinFraction>
+            <MaxFraction>99</MaxFraction>
+            <IsRandomizeFraction>true</IsRandomizeFraction>
+            <Scale>2</Scale>
+            <Precision>0</Precision>
+            <MaxTime>863990000000</MaxTime>
+            <MinTime>10000000</MinTime>
+          </GeneratorOptions>
+          <GeneratorType>SqlDateTimeGenerator</GeneratorType>
+          <GeneratorName>datetime</GeneratorName>
+          <GeneratorDescription>fill with date and time with fractional seconds values</GeneratorDescription>
+          <Scale>3</Scale>
           <Length>8</Length>
-          <Precision>19</Precision>
+          <Precision>23</Precision>
+        </Column>
+        <Column Name="seen">
+          <Checked>true</Checked>
+          <DataType>bit</DataType>
+          <GeneratorOptions xsi:type="BitGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>16</SeedValue>
+            <TrueProbability>0.5</TrueProbability>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+          </GeneratorOptions>
+          <GeneratorType>SqlBitGenerator</GeneratorType>
+          <GeneratorName>bit</GeneratorName>
+          <GeneratorDescription>fill with true or false values</GeneratorDescription>
+          <Length>1</Length>
+          <Precision>1</Precision>
         </Column>
       </Columns>
     </Table>
     <Table Name="dbo.Order_detail">
-      <Checked>false</Checked>
+      <Checked>true</Checked>
       <Settings>
         <Truncate>true</Truncate>
         <RowsToGenerate>0</RowsToGenerate>
@@ -1295,15 +1944,15 @@
       </Settings>
       <Columns>
         <Column Name="orderID">
-          <Checked>false</Checked>
-          <DataType>char</DataType>
+          <Checked>true</Checked>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>11</SeedValue>
+            <SeedValue>17</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1314,18 +1963,19 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="proID">
-          <Checked>false</Checked>
-          <DataType>char</DataType>
+          <Checked>true</Checked>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>12</SeedValue>
+            <SeedValue>18</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1336,10 +1986,11 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="quantity">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>int</DataType>
           <GeneratorOptions xsi:type="IntegerGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1362,31 +2013,7 @@
           <Precision>10</Precision>
         </Column>
         <Column Name="price">
-          <Checked>false</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
-            <AllowNulls>false</AllowNulls>
-            <NullProportion>10</NullProportion>
-            <Unique>false</Unique>
-            <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>11</SeedValue>
-            <MinValue>99</MinValue>
-            <MaxValue>1999</MaxValue>
-            <UseDefault>false</UseDefault>
-            <DefaultValue />
-          </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>Product Cost</GeneratorName>
-          <GeneratorDescription>379,0069; 1942; 158,0113; 261; ...</GeneratorDescription>
-          <GeneratorCategory>Product</GeneratorCategory>
-          <Scale>4</Scale>
-          <Length>8</Length>
-          <Precision>19</Precision>
-        </Column>
-        <Column Name="discount">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>float</DataType>
           <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1394,10 +2021,35 @@
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <Increment xsi:type="xsd:double">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>17</SeedValue>
+            <MinValue>299999</MinValue>
+            <MaxValue>9999999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
+          </GeneratorOptions>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>Annual Revenue</GeneratorName>
+          <GeneratorDescription>759000, 9533800, 310000, 1897700, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>8</Length>
+          <Precision>53</Precision>
+        </Column>
+        <Column Name="discount">
+          <Checked>true</Checked>
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:double">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
             <SeedValue>11</SeedValue>
-            <MinValue>-99999999999</MinValue>
-            <MaxValue>99999999999</MaxValue>
+            <MinValue>0</MinValue>
+            <MaxValue>200000</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
             <Scale>2</Scale>
@@ -1410,27 +2062,28 @@
           <Precision>53</Precision>
         </Column>
         <Column Name="total">
-          <Checked>false</Checked>
-          <DataType>money</DataType>
-          <GeneratorOptions xsi:type="MoneyGeneratorOptions">
+          <Checked>true</Checked>
+          <DataType>float</DataType>
+          <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:decimal">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>11</SeedValue>
+            <Increment xsi:type="xsd:double">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>19</SeedValue>
             <MinValue>0</MinValue>
-            <MaxValue>9999999</MaxValue>
+            <MaxValue>9000000000</MaxValue>
             <UseDefault>false</UseDefault>
             <DefaultValue />
+            <Scale>2</Scale>
+            <Precision>13</Precision>
           </GeneratorOptions>
-          <GeneratorType>MoneyGenerator</GeneratorType>
-          <GeneratorName>money</GeneratorName>
-          <GeneratorDescription>fill with monetary or currency values</GeneratorDescription>
-          <Scale>4</Scale>
+          <GeneratorType>SqlFloatGenerator</GeneratorType>
+          <GeneratorName>float</GeneratorName>
+          <GeneratorDescription>fill with floating point numeric values</GeneratorDescription>
           <Length>8</Length>
-          <Precision>19</Precision>
+          <Precision>53</Precision>
         </Column>
       </Columns>
     </Table>
@@ -1450,14 +2103,14 @@
       <Columns>
         <Column Name="proID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>13</SeedValue>
+            <SeedValue>20</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1468,7 +2121,8 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="date">
           <Checked>true</Checked>
@@ -1573,14 +2227,14 @@
       <Columns>
         <Column Name="proID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>17</SeedValue>
+            <SeedValue>24</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1591,18 +2245,19 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="uID">
           <Checked>true</Checked>
-          <DataType>char</DataType>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>18</SeedValue>
+            <SeedValue>25</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1613,7 +2268,8 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
         <Column Name="score">
           <Checked>true</Checked>
@@ -1699,7 +2355,7 @@
       </Columns>
     </Table>
     <Table Name="dbo.Salary">
-      <Checked>false</Checked>
+      <Checked>true</Checked>
       <Settings>
         <Truncate>true</Truncate>
         <RowsToGenerate>0</RowsToGenerate>
@@ -1713,15 +2369,15 @@
       </Settings>
       <Columns>
         <Column Name="uID">
-          <Checked>false</Checked>
-          <DataType>char</DataType>
+          <Checked>true</Checked>
+          <DataType>int</DataType>
           <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <AllowNulls>false</AllowNulls>
             <NullProportion>0</NullProportion>
             <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>19</SeedValue>
+            <SeedValue>27</SeedValue>
             <RepeatValues>false</RepeatValues>
             <FromTimes>1</FromTimes>
             <ToTimes>10</ToTimes>
@@ -1732,10 +2388,11 @@
           <GeneratorName>Foreign Key (auto assigned)</GeneratorName>
           <GeneratorDescription>references a column from parent table</GeneratorDescription>
           <HasForeignKey>true</HasForeignKey>
-          <Length>9</Length>
+          <Length>4</Length>
+          <Precision>10</Precision>
         </Column>
-        <Column Name="DateS">
-          <Checked>false</Checked>
+        <Column Name="DateStart">
+          <Checked>true</Checked>
           <DataType>date</DataType>
           <GeneratorOptions xsi:type="DateGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1743,8 +2400,8 @@
             <Unique>true</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
             <UseDefault>false</UseDefault>
-            <ValueDistributionMode>Random</ValueDistributionMode>
-            <SeedValue>19</SeedValue>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>27</SeedValue>
             <SequentialValueTicks>864000000000</SequentialValueTicks>
             <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
             <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
@@ -1752,8 +2409,8 @@
             <UseOffsetDetails>false</UseOffsetDetails>
             <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
             <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
-            <MinDate>2020-01-01T00:00:00</MinDate>
-            <MaxDate>2021-12-10T00:00:00+07:00</MaxDate>
+            <MinDate>2010-01-01T00:00:00</MinDate>
+            <MaxDate>2022-01-03T00:00:00+07:00</MaxDate>
             <IsRandomizeDate>true</IsRandomizeDate>
           </GeneratorOptions>
           <GeneratorType>SqlDateGenerator</GeneratorType>
@@ -1763,7 +2420,7 @@
           <Precision>10</Precision>
         </Column>
         <Column Name="salary">
-          <Checked>false</Checked>
+          <Checked>true</Checked>
           <DataType>float</DataType>
           <GeneratorOptions xsi:type="FloatGeneratorOptions">
             <AllowNulls>false</AllowNulls>
@@ -1788,31 +2445,50 @@
           <Precision>53</Precision>
         </Column>
         <Column Name="sales">
-          <Checked>false</Checked>
-          <DataType>float</DataType>
-          <GeneratorOptions xsi:type="FloatGeneratorOptions">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="DateEnd">
+          <Checked>true</Checked>
+          <DataType>date</DataType>
+          <GeneratorOptions xsi:type="DateGeneratorOptions">
             <AllowNulls>false</AllowNulls>
             <NullProportion>10</NullProportion>
             <Unique>false</Unique>
             <IsAlwaysUnique>false</IsAlwaysUnique>
-            <Increment xsi:type="xsd:double">1</Increment>
-            <ValueDistributionMode>Seed</ValueDistributionMode>
-            <SeedValue>19</SeedValue>
-            <MinValue>0</MinValue>
-            <MaxValue>99999999999</MaxValue>
             <UseDefault>false</UseDefault>
-            <DefaultValue />
-            <Scale>2</Scale>
-            <Precision>13</Precision>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>28</SeedValue>
+            <SequentialValueTicks>864000000000</SequentialValueTicks>
+            <OffsetFromColumnMaxTimeTicks>10000000</OffsetFromColumnMaxTimeTicks>
+            <OffsetFromColumnMinTimeTicks>10000000</OffsetFromColumnMinTimeTicks>
+            <DateTimeRange>OffsetFromColumn</DateTimeRange>
+            <SelectedColumn>DateStart</SelectedColumn>
+            <UseOffsetDetails>true</UseOffsetDetails>
+            <OffsetFromColumnMinDays>28</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>30</OffsetFromColumnMaxDays>
+            <MinDate>2010-01-01T00:00:00</MinDate>
+            <MaxDate>2022-01-03T00:00:00+07:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
           </GeneratorOptions>
-          <GeneratorType>SqlFloatGenerator</GeneratorType>
-          <GeneratorName>float</GeneratorName>
-          <GeneratorDescription>fill with floating point numeric values</GeneratorDescription>
-          <Length>8</Length>
-          <Precision>53</Precision>
+          <GeneratorType>SqlDateGenerator</GeneratorType>
+          <GeneratorName>date</GeneratorName>
+          <GeneratorDescription>fill with date values</GeneratorDescription>
+          <Length>3</Length>
+          <Precision>10</Precision>
         </Column>
       </Columns>
     </Table>
   </Tables>
-  <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions" />
+  <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions">
+    <SynchronizeType>File</SynchronizeType>
+    <SynchronizationFileName>E:\respo\repos\ADB2_1_DA-2\DataGeneration_Demo.sql</SynchronizationFileName>
+    <ExecuteCustomScriptTypeBefore>UseEmbeddedScript</ExecuteCustomScriptTypeBefore>
+    <ExecuteCustomScriptTypeAfter>UseEmbeddedScript</ExecuteCustomScriptTypeAfter>
+    <BackupDatabase>false</BackupDatabase>
+    <BackupPathName>C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\Backup</BackupPathName>
+    <CompareColumnStoreTables>true</CompareColumnStoreTables>
+  </SynchronizationOptions>
 </DataGenDocument>

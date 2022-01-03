@@ -143,6 +143,7 @@ FROM [Order] o JOIN Order_detail od ON o.orderID = od.orderID
 --WHERE YEAR(o.dateBill) LIKE @year
 GROUP BY MONTH(o.dateBill), YEAR(o.dateBill)
 ORDER BY MONTH(o.dateBill) DESC, yEAR(o.dateBill) DESC
+GO
 
 CREATE PROCEDURE SelectProductAvailableStoredID
 @storeID INT
