@@ -1,24 +1,24 @@
 
-CREATE PROCEDURE InsertAccount 
+CREATE OR ALTER PROCEDURE InsertAccount 
 @username varchar(30), @password varchar(100),@role int, @userid int
 AS
 	INSERT INTO dbo.Account VALUES (@username, @password, @role, @userid)
 GO
 
-CREATE PROCEDURE InsertUser 
+CREATE OR ALTER PROCEDURE InsertUser 
 @fullname nvarchar(50), @dob DATE,@address NVARCHAR(100), @telephone char(15),
 @email varchar(50), @datefounded datetime
 AS
 	INSERT INTO dbo.[User] VALUES (@fullname, @dob, @address, @telephone, @email, @datefounded, 0)
 GO
 
-CREATE PROCEDURE InsertAttendance 
+CREATE OR ALTER PROCEDURE InsertAttendance 
 @uid int, @timeStart DATETIME, @status BIT
 AS
 	INSERT INTO ATTENDANCE ([uid],timeStart,[status]) VALUES (@uid,@timeStart, @status)
 GO
 
-CREATE PROCEDURE UpdateAttendance 
+CREATE OR ALTER PROCEDURE UpdateAttendance 
 @uid int,@timeStart DATETIME, @timeEnd DATETIME, @status BIT
 AS
 	IF ((SELECT TOP 1 ([status]) FROM dbo.Attendance WHERE CAST (timeStart AS DATE) = cast (@timeStart AS DATE) AND [uid]= @uid) = 1)
@@ -27,14 +27,14 @@ AS
 	WHERE CAST (timeStart AS DATE) = cast (@timeStart AS DATE) AND [uid]= @uid
 GO
 
-CREATE PROCEDURE SelectSpecificAttendance 
+CREATE OR ALTER PROCEDURE SelectSpecificAttendance 
 @uid int,@timeStart DATETIME
 AS
 	SELECT * FROM dbo.Attendance WHERE CAST (timeStart AS DATE) = CAST(@timeStart AS DATE) AND [uid] = @uid
 GO	
 
- select a specific user from database to check login
-CREATE PROCEDURE SelectUID
+ --select a specific user from database to check login
+CREATE OR ALTER PROCEDURE SelectUID
 	@fullname nvarchar(50), @dob DATE,@address NVARCHAR(100), @telephone char(15),
 	@email varchar(50), @datefounded datetime
 AS  
@@ -45,7 +45,7 @@ AS
 GO  
 
 
-CREATE PROCEDURE SelectAttendance
+CREATE OR ALTER PROCEDURE SelectAttendance
 @date DATETIME, @uid INT	
 AS  
 BEGIN	
@@ -53,7 +53,7 @@ BEGIN
 END	
 GO  
 
-CREATE PROCEDURE SelectAttendanceUID
+CREATE OR ALTER PROCEDURE SelectAttendanceUID
 @uid INT	
 AS  
 BEGIN	
@@ -61,7 +61,7 @@ BEGIN
 END	
 GO 
 
-CREATE PROCEDURE SelectStaffStoredID
+CREATE OR ALTER PROCEDURE SelectStaffStoredID
 @uid INT	
 AS  
 BEGIN	
@@ -69,15 +69,23 @@ BEGIN
 END	
 GO
 
-CREATE PROCEDURE SelectOrderByStoredID
+CREATE OR ALTER PROCEDURE SelectOrderByStoredID
 @storeid INT	
 AS  
 BEGIN	
-	SELECT orderID,uID,dateBill, isPay FROM [Order] WHERE storeID = @storeid and empID = null;
+	SELECT orderID,uID,dateBill, isPay FROM [Order] WHERE storeID = @storeid AND empID IS NULL
 END	
 GO
 
-CREATE PROCEDURE updateOrderWithEmpID
+CREATE OR ALTER PROCEDURE SelectAllOrderByStoredID
+AS  
+BEGIN	
+	SELECT orderID,[uID],dateBill, isPay, empID FROM [Order] where empID IS NULL
+END	
+GO
+
+
+CREATE OR ALTER PROCEDURE updateOrderWithEmpID
 @orderid INT, @empid INT  	
 AS  
 BEGIN	
@@ -85,7 +93,7 @@ BEGIN
 END	
 GO
 
-CREATE PROCEDURE FindAllSalaryStaffID
+CREATE OR ALTER PROCEDURE FindAllSalaryStaffID
 @uid INT	
 AS  
 BEGIN	
@@ -93,7 +101,7 @@ BEGIN
 END	
 GO  
 
-CREATE PROCEDURE FindAllSalaryByYear
+CREATE OR ALTER PROCEDURE FindAllSalaryByYear
 @uid INT, @year INT	
 AS  
 BEGIN	
@@ -101,7 +109,7 @@ BEGIN
 END	
 GO  
 
-CREATE PROCEDURE SelectProductWithOffset
+CREATE OR ALTER PROCEDURE SelectProductWithOffset
 @limit INT, @offset INT
 AS
 BEGIN 
@@ -114,14 +122,14 @@ BEGIN
 END
 GO	
 
-CREATE PROCEDURE SelectPriceProductByProID
+CREATE OR ALTER PROCEDURE SelectPriceProductByProID
 @proID int
 as
 	SELECT TOP 1 date, price, discount FROM dbo.PriceProduct WHERE proID = @proID
 	ORDER BY date desc
 GO 
 
-CREATE PROCEDURE SelectProductWithSpecificType
+CREATE OR ALTER PROCEDURE SelectProductWithSpecificType
 @limit int, @offset int, @tid int 
 AS
 BEGIN	
@@ -136,7 +144,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE DoanhThuThang
+CREATE OR ALTER PROCEDURE DoanhThuThang 
 AS
  SELECT MONTH(o.dateBill) AS N'month',YEAR(o.dateBill) AS N'year', SUM(od.total) AS N'total' 
 FROM [Order] o JOIN Order_detail od ON o.orderID = od.orderID
@@ -145,21 +153,23 @@ GROUP BY MONTH(o.dateBill), YEAR(o.dateBill)
 ORDER BY MONTH(o.dateBill) DESC, yEAR(o.dateBill) DESC
 GO
 
-CREATE PROCEDURE SelectProductAvailableStoredID
+
+CREATE OR ALTER PROCEDURE SelectProductAvailableStoredID
 @storeID INT
 AS 
 	SELECT Available.proID, stock, p.pname FROM dbo.Available JOIN product p ON p.proID = Available.proID AND storeID = @storeID
 GO
 
 SELECT * FROM dbo.Available JOIN product p ON p.proID = Available.proID
+GO 
 
-CREATE PROCEDURE SelectQuantityProductBySearch
+CREATE OR ALTER PROCEDURE SelectQuantityProductBySearch
 @key nvarchar(50)
 as
 	SELECT count(*) as soluong from product where pname like ('%' + @key +'%')
 GO 
 
-CREATE PROCEDURE SelectProductWithSearchKey
+CREATE OR ALTER PROCEDURE SelectProductWithSearchKey
 @limit int, @offset int, @key nvarchar(50)
 AS
 BEGIN	
@@ -173,18 +183,18 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE InsertOrder
-@uid int, @date DATETIME
+CREATE OR ALTER PROCEDURE InsertOrder
+@uid int, @date DATETIME, @total INT
 AS
 BEGIN	
-	INSERT INTO dbo.[Order]([uID], dateBill,isPay)
-	VALUES(@uid,@date,0)
+	INSERT INTO dbo.[Order]([uID], dateBill,isPay,total)
+	VALUES(@uid,@date,0,@total)
 
 	SELECT orderID FROM dbo.[Order] WHERE @uid = [uID] AND @date = dateBill AND isPay = 0;
 END
 GO
 
-CREATE PROCEDURE InsertOrderDetail
+CREATE OR ALTER PROCEDURE InsertOrderDetail
 @orderid int, @proID INT, @quantity INT, @price FLOAT, @discount INT 
 AS
 BEGIN	
