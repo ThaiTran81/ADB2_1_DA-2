@@ -65,6 +65,19 @@ export default {
             return null;
         }
     },
+    async findAllOrderByStoredID() {
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .execute("SelectAllOrderByStoredID");
+
+            return result.recordset;
+        }catch(err){
+            console.log(err)
+            return null;
+        }
+    }
+    ,
     async updateOrderWithEmpID(entity){
         try{
             console.log(entity);
@@ -108,12 +121,13 @@ export default {
             return null;
         }
     },
-    async createNewOrder(orderID, date){
+    async createNewOrder(orderID, date,total){
         try{
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('date', sql.DateTime, date)
                 .input('uid', sql.Int, orderID)
+                .input('total', sql.Int, total)
                 .execute("InsertOrder");
 
             return result.recordset;
@@ -130,7 +144,7 @@ export default {
                 .input('orderid', sql.Int,orderid )
                 .input('proID', sql.Int, parseInt(entity.proID))
                 .input('quantity', sql.Int, entity.quantity)
-                .input('price', sql.Float, entity.price)
+                .input('price', sql.Float, parseFloat(entity.price))
                 .input('discount', sql.Float, 0)
                 .execute("InsertOrderDetail");
 

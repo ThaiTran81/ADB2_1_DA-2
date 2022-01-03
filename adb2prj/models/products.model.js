@@ -11,11 +11,11 @@ export default {
 
 
             for (const record of result.recordset) {
-                console.log(record)
+
                 let recordResult = await pool.request()
                     .input('proID', sql.Int, record.proID)
                     .execute("SelectPriceProductByProID");
-                record.date = recordResult.recordset[0].date;
+                record.record = recordResult.recordset[0].date;
                 record.price = recordResult.recordset[0].price;
                 record.discount = recordResult.recordset[0].discount;
             }

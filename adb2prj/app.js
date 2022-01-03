@@ -329,7 +329,7 @@ app.get('/inventory', async function (req, res) {
 
     let storedID = await staffModels.findStaffStoredID(req.session.account.userid);
     let list = await productsModels.findAllProductsAvailableWithStoreID(storedID[0].storeID);
-    console.log(storedID)
+
     res.render('vwStaff/inventory', {
         layout: 'staff.hbs',
         list, storedID: storedID[0].storeID
@@ -338,7 +338,9 @@ app.get('/inventory', async function (req, res) {
 
 app.get('/order-processing', async function (req, res) {
     let storedID = await staffModels.findStaffStoredID(req.session.account.userid);
-    let list = await orderModels.findOrderByStoredID(storedID[0].storeID);
+    console.log(storedID);
+    // let list = await orderModels.findOrderByStoredID(storedID[0].storeID);
+    let list = await orderModels.findAllOrderByStoredID();
     res.render('vwStaff/order-processing', {
         layout: 'staff.hbs',
         list
@@ -361,6 +363,8 @@ app.get('/orders/detail', async function (req, res) {
     let address = await userModels.findAddressByUID(order[0].uID);
     let details = await orderModels.findDetailOrderByOrderID(orderID);
     let totalDetail = await orderModels.findTotalDetailOrderID(orderID);
+    console.log(req.query);
+    console.log(order, address, details, totalDetail)
     res.render('vwOrders/detail', {
         layout: 'staff.hbs',
         order: order[0], address: address[0].address, details,
@@ -466,8 +470,15 @@ app.get('/checkout/confirm', async function (req, res) {
     if (products.length === 0){
         res.redirect('/checkout');
     }else{
+
+        let total = 0;
+        for (const product of products) {
+            total += parseInt(product.productsItem.price) * product.productsItem.quantity;
+            product.productsItem.total =  parseInt(product.productsItem.price) * product.productsItem.quantity;
+        }
+
         let date = new Date().toLocaleString();
-        let result = await orderModels.createNewOrder(req.session.account.userid,date);
+        let result = await orderModels.createNewOrder(req.session.account.userid,date,total);
         let orderid = (result[0].orderID);
         for (const product of req.session.cart) {
             await orderModels.createNewOrderDetail(orderid,product.productsItem);

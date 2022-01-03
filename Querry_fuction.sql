@@ -1,5 +1,4 @@
 ﻿USE qlbh
-  USE qlbh
 
 -- Sort san pham theo tên
 SELECT * 
@@ -51,7 +50,7 @@ GROUP BY p.proID,p.pname,p.price,p.ptype
 ORDER BY COUNT(r.proID) DESC
 --Doanh Thu tháng
 go
-alter PROC DoanhThuThang @year CHAR(4)
+CREATE proc DoanhThuThang @year CHAR(4)
 AS
  SELECT MONTH(o.dateBill) AS N'Tháng',YEAR(o.dateBill) AS N'Năm', SUM(od.total) AS N'Doanh thu' 
 FROM [Order] o JOIN Order_detail od ON o.orderID = od.orderID
@@ -60,9 +59,4 @@ GROUP BY MONTH(o.dateBill), YEAR(o.dateBill)
 ORDER BY MONTH(o.dateBill) DESC, yEAR(o.dateBill) DESC
 EXEC DoanhThuThang @year = '2021'
 
---Doanh thu nam
-  SELECT YEAR(o.dateBill) AS N' Năm', SUM(od.total) AS N'Doanh Thu'
-FROM [Order] o JOIN Order_detail od ON o.orderID = od.orderID
-GROUP BY YEAR(o.dateBill)
-ORDER BY YEAR(o.dateBill) desc
 

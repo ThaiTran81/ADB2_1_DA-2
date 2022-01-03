@@ -169,23 +169,5 @@ begin
 		end
 end
 go
---trigger total bảng import detail: tổng tiền 
---triger total bảng order
---trigger total bảng order detail
---trigger discount bảng priceProduct > phải bé hơn price
 
---Stored function
--- CREATE PROCEDURE update_TotalOrdered(@orderID int)
---  AS
---  BEGIN
---   update [Order]
---   SET [Order].total = (SELECT SUM(Order_detail.total)
---              FROM Order_detail
---              WHERE Order_detail.orderID = @orderID)
 
---insert into Import_detailed (ImID, proID, Quantity) values (1, 1, 5000)
---delete from Import_detailed
---update Import_detailed set Quantity = 100 where proID = 1
---insert into Product (proID) values (1),(2),(3) 
---select*from Import_detailed
---select*from Product

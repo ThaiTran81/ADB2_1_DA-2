@@ -9,14 +9,14 @@
                                 <h2>Chi tiết hoá đơn</h2>
                             </div>
                             <div class="col-4">
-                                <h4 class="float-end">Mã hoá đơn: #{{this.order.orderID}}</h4>
+                                <h4 class="float-end">Mã hoá đơn: #{{order.orderID}}</h4>
                             </div>
                         </div>
                         <div class="invoice-details">
                             <div class="row">
                                 <div class="col">
                                     <p class="info">Ngày lập hoá đơn: </p>
-                                    <p>{{formatDateTime this.order.dateBill}}</p>
+                                    <p>{{this.order.dateBill}}</p>
                                 </div>
                                 <div class="col">
                                     <p class="info">ID khách hàng: </p>
@@ -58,9 +58,9 @@
                                 </table>
                                 <div class="float-end me-5 w-25">
                                     <div class="invoice-info">
-                                        <p>Tổng tiền <span>{{formatMoney this.totalDetail}}</span></p>
-                                        <p>Giảm giá <span>{{formatMoney this.order.discount}}</span></p>
-                                        <p class="bold">Thành tiền: <span class=""> {{formatMoney this.order.total}}</span></p>
+                                        <p>Tổng tiền <span>{{this.totalDetail}}</span></p>
+                                        <p>Giảm giá <span>{{this.order.discount}}</span></p>
+                                        <p class="bold">Thành tiền: <span class=""> {{this.order.total}}</span></p>
                                         <div class="d-grid gap-2">
                                             <button class="btn btn-danger m-t-xs" type="button">In hoá đơn
                                             </button>
